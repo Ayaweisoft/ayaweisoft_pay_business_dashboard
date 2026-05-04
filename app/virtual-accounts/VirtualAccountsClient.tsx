@@ -125,7 +125,7 @@ export default function VirtualAccountsClient() {
 
       {/* VA Transactions Table */}
       <div className="glass-card flex flex-col overflow-hidden border border-border">
-        <div className="p-6 border-b border-border bg-white/[0.02]">
+        <div className="p-6 border-b border-border bg-white/2">
           <h2 className="text-lg font-bold text-white">Recent VA Activity</h2>
         </div>
         <div className="overflow-x-auto">
@@ -141,7 +141,7 @@ export default function VirtualAccountsClient() {
             </thead>
             <tbody className="divide-y divide-border">
               {VA_TRANSACTIONS.map((tx, idx) => (
-                <tr key={idx} className="hover:bg-white/[0.02] transition-colors">
+                <tr key={idx} className="hover:bg-white/2 transition-colors">
                   <td className="px-6 py-4 text-white/60">
                     {new Date(tx.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
                   </td>

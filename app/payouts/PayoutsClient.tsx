@@ -95,7 +95,7 @@ export default function PayoutsClient() {
             </thead>
             <tbody className="divide-y divide-border">
               {PAYOUT_HISTORY.map((row, idx) => (
-                <tr key={idx} className="hover:bg-white/[0.02] transition-colors">
+                <tr key={idx} className="hover:bg-white/2 transition-colors">
                   <td className="px-6 py-4 text-white font-medium">{row.name}</td>
                   <td className="px-6 py-4 text-white/60">{row.bank}</td>
                   <td className="px-6 py-4 text-white font-mono">₦{row.amount.toLocaleString()}</td>

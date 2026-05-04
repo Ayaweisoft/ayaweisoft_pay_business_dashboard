@@ -152,7 +152,6 @@ export default function TransactionsClient() {
               <h2 className={`text-3xl font-bold ${selectedTxn.type === 'Credit' ? 'text-success' : 'text-white'}`}>
                 ₦{(selectedTxn.amount + selectedTxn.fees).toLocaleString()}
               </h2>
-              <StatusBadge status={selectedTxn.status as any} />
             </div>
 
             <div className="grid grid-cols-2 gap-y-4 text-sm">
@@ -162,6 +161,7 @@ export default function TransactionsClient() {
               </div>
               <div className="text-right">
                 <p className="text-white/40">Date</p>
+                
                 <p className="text-white font-medium">{selectedTxn.date}</p>
               </div>
               <div>
