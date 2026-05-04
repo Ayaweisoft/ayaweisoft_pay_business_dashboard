@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 import { StatusBadge } from "../../components/StatusBadge";
 
-const API_KEY_HIDDEN = process.env.NEXT_PUBLIC_STRIPE_KEY_MASK || "***REMOVED*******************************";
+const API_KEY_HIDDEN = process.env.NEXT_PUBLIC_STRIPE_KEY_MASK;
 interface EnvWindow extends Window {
   ENV?: {
     STRIPE_API_KEY?: string;
