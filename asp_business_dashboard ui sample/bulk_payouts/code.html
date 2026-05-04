@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bulk Transfer | FinNova Pro</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "inverse-on-surface": "#2e303a",
+                        "primary-container": "#2e5bff",
+                        "tertiary-container": "#c24100",
+                        "on-secondary-fixed-variant": "#004f53",
+                        "tertiary-fixed": "#ffdbcf",
+                        "inverse-surface": "#e2e1ef",
+                        "outline": "#8e90a2",
+                        "on-surface-variant": "#c4c5d9",
+                        "tertiary-fixed-dim": "#ffb59b",
+                        "surface-container-low": "#191b24",
+                        "on-background": "#e2e1ef",
+                        "surface": "#11131c",
+                        "error-container": "#93000a",
+                        "tertiary": "#ffb59b",
+                        "outline-variant": "#434656",
+                        "secondary-fixed-dim": "#00dce6",
+                        "error": "#ffb4ab",
+                        "on-tertiary": "#5b1a00",
+                        "on-secondary": "#00373a",
+                        "surface-dim": "#11131c",
+                        "on-primary-fixed": "#001356",
+                        "primary-fixed": "#dde1ff",
+                        "surface-container-high": "#282933",
+                        "surface-bright": "#373943",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-lowest": "#0c0e17",
+                        "surface-variant": "#33343e",
+                        "on-primary": "#002388",
+                        "surface-container": "#1d1f29",
+                        "on-error": "#690005",
+                        "on-tertiary-fixed": "#380d00",
+                        "on-secondary-container": "#006a6f",
+                        "on-primary-fixed-variant": "#0035be",
+                        "secondary-fixed": "#6ff6ff",
+                        "on-surface": "#e2e1ef",
+                        "primary": "#b8c3ff",
+                        "surface-container-highest": "#33343e",
+                        "on-tertiary-container": "#ffece6",
+                        "inverse-primary": "#124af0",
+                        "on-primary-container": "#efefff",
+                        "primary-fixed-dim": "#b8c3ff",
+                        "on-tertiary-fixed-variant": "#812800",
+                        "secondary": "#dcfdff",
+                        "on-secondary-fixed": "#002022",
+                        "background": "#11131c",
+                        "surface-tint": "#b8c3ff",
+                        "secondary-container": "#00f1fd"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "display": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #05070A; font-family: 'Inter', sans-serif; }
+        .glass-card {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glass-modal {
+            backdrop-filter: blur(40px);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 40px rgba(46, 91, 255, 0.15);
+        }
+        .primary-gradient {
+            background: linear-gradient(135deg, #2e5bff 0%, #00f1fd 100%);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="text-on-surface selection:bg-primary-container/30">
+<div class="flex min-h-screen">
+<!-- SideNavBar -->
+<aside class="hidden lg:flex flex-col h-screen w-64 border-r border-white/10 bg-slate-950/60 backdrop-blur-2xl fixed left-0 top-0 z-50 py-4 font-manrope text-sm">
+<div class="text-xl font-black text-white px-4 py-6">FinNova Pro</div>
+<div class="px-4 mb-4">
+<div class="flex items-center gap-3 p-3 glass-card rounded-xl">
+<img alt="Business Logo" class="w-8 h-8 rounded-lg" data-alt="A professional high-fidelity business logo for a fintech enterprise, featuring sharp geometric lines and a subtle gradient of deep blue and cyan. The logo is displayed on a small dark square container with rounded corners, representing a premium corporate identity within a sleek, glassmorphic user interface environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfG43Pp1V8BTP2IHfr58CIrIPv8DiAZTOxoi-l9MUbdQPDHbE-nMEFEPG9hhZNdL5Gh3mjh0Yh87EJM-foKDImkaku5CkgPRCPmCySYWI_uVRs7DPGWX9u-VD4Sn4AyS9A7jDXYb4guYeUyOptjOF0fNaJdaSfd3fkLG3g-xbXSNOMtJyOLmu6Xh5KCbTJHZoumrctRYrFJ8ZEaX4BHaIQHZ52-bx23iMir4qcYbx2t8pZFv4MUCcPRTta_Ej7xqKgKmoNQFWCay2i"/>
+<div>
+<p class="text-white font-bold block">FinNova Pro</p>
+<p class="text-slate-500 text-xs block">Enterprise Admin</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 px-3 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 hover:bg-white/5 hover:text-white transition-all duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-blue-600/10 text-blue-400 border-r-2 border-blue-500 font-bold transition-all duration-200" href="#">
+<span class="material-symbols-outlined">swap_horiz</span>
+<span>Transactions</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 hover:bg-white/5 hover:text-white transition-all duration-200" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span>Wallets</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 hover:bg-white/5 hover:text-white transition-all duration-200" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span>Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 hover:bg-white/5 hover:text-white transition-all duration-200" href="#">
+<span class="material-symbols-outlined">verified_user</span>
+<span>Compliance</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 hover:bg-white/5 hover:text-white transition-all duration-200" href="#">
+<span class="material-symbols-outlined">help_center</span>
+<span>Support</span>
+</a>
+</nav>
+<div class="px-4 pt-4 mt-auto border-t border-white/10">
+<button class="w-full primary-gradient text-white font-bold py-3 rounded-xl shadow-lg shadow-primary-container/20 active:scale-95 transition-transform">
+                    Quick Transfer
+                </button>
+<a class="flex items-center gap-3 px-4 py-4 mt-4 rounded-xl text-slate-500 hover:bg-white/5 hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span>Sign Out</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 lg:ml-64 pb-24 lg:pb-8">
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 left-0 lg:left-64 h-16 z-40 flex items-center justify-between px-6 bg-slate-950/40 backdrop-blur-xl border-b border-white/10 shadow-2xl shadow-blue-500/10">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+<input class="w-full bg-white/5 border border-white/10 rounded-full py-2 pl-10 pr-4 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all" placeholder="Search transactions..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-400 hover:bg-white/5 rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-slate-400 hover:bg-white/5 rounded-full transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-8 w-[1px] bg-white/10 mx-2"></div>
+<div class="flex items-center gap-3">
+<span class="font-manrope text-sm font-medium text-white">Profile</span>
+<img alt="User profile avatar" class="w-8 h-8 rounded-full border border-blue-500/50" data-alt="A close-up portrait of a professional male executive in his mid-30s, looking confidently at the camera. He is wearing a dark, tailored suit with a crisp white shirt. The background is a soft-focus office interior with cool blue and slate grey tones, reflecting a premium fintech corporate environment with clean lines and modern lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaukMOAgeUGxnx3T9PQdP0YCcx0Bye3LQoHPGVTj98Gt52FyRl0Y0sDuLH7hufvto_G2HdTDsKyF7KxiPhZ_ioQ1TkgUaXw97a31fPoWGf-8F1ovYeGrLLBcHxb7GHI-jrd2MJAMcwHF1xAfNZUN9I6NpUoYYrJw5xKjBztdYBNuxGexzgruEkkOagjNBR7FZxJ5TNX1Cs3QI6Bc42sIoUwSoCreobFM6KPUEh5rzcRJFAE08yG-R2luBP-hdU2gYQ75K_ofCxX3o1"/>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="mt-24 px-6 max-w-6xl mx-auto">
+<div class="mb-8">
+<h1 class="text-3xl font-manrope font-extrabold text-white tracking-tight mb-2">Bulk Transfer</h1>
+<p class="text-on-surface-variant">Securely process multiple payouts simultaneously via CSV upload.</p>
+</div>
+<!-- Main Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Left: Upload Section -->
+<div class="lg:col-span-8 space-y-8">
+<!-- Drag and Drop Zone -->
+<div class="glass-card rounded-[24px] p-12 border-dashed border-2 border-white/20 flex flex-col items-center justify-center text-center group hover:border-blue-500/50 hover:bg-blue-600/5 transition-all duration-300">
+<div class="w-16 h-16 rounded-2xl bg-primary-container/10 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-4xl">upload_file</span>
+</div>
+<h3 class="text-xl font-bold text-white mb-2">Upload CSV</h3>
+<p class="text-slate-400 max-w-xs mb-8">Drag and drop your payout file here, or browse your computer to select a file.</p>
+<button class="px-8 py-3 rounded-xl border border-white/10 font-bold hover:bg-white/5 transition-colors">
+                                Select File
+                            </button>
+<p class="mt-6 text-xs text-slate-500">Supported format: .CSV (Max 10MB)</p>
+</div>
+<!-- Data Integrity Preview (Bento Item) -->
+<div class="glass-card rounded-[24px] overflow-hidden">
+<div class="p-6 border-b border-white/10 flex justify-between items-center">
+<h3 class="font-manrope font-bold text-white">Recent Batch History</h3>
+<button class="text-blue-500 text-sm font-medium">View All</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left text-sm">
+<thead>
+<tr class="text-slate-500 border-b border-white/5">
+<th class="px-6 py-4 font-medium uppercase tracking-wider text-[10px]">Batch ID</th>
+<th class="px-6 py-4 font-medium uppercase tracking-wider text-[10px]">Date</th>
+<th class="px-6 py-4 font-medium uppercase tracking-wider text-[10px]">Amount</th>
+<th class="px-6 py-4 font-medium uppercase tracking-wider text-[10px]">Status</th>
+</tr>
+</thead>
+<tbody class="text-slate-300">
+<tr class="hover:bg-white/5 transition-colors">
+<td class="px-6 py-4 font-mono">BT-99201</td>
+<td class="px-6 py-4">Oct 24, 2023</td>
+<td class="px-6 py-4 text-white">₦450,000.00</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-500/10 text-green-400 border border-green-500/20">Success</span>
+</td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors">
+<td class="px-6 py-4 font-mono">BT-99185</td>
+<td class="px-6 py-4">Oct 22, 2023</td>
+<td class="px-6 py-4 text-white">₦1,200,000.00</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-500/10 text-green-400 border border-green-500/20">Success</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Right: Summary Section -->
+<div class="lg:col-span-4">
+<div class="sticky top-24 space-y-6">
+<div class="glass-modal rounded-[24px] p-8 border border-white/10">
+<h2 class="text-lg font-manrope font-bold text-white mb-8">Payout Summary</h2>
+<div class="space-y-6 mb-8">
+<div class="flex justify-between items-center">
+<span class="text-slate-400">Total Amount</span>
+<span class="text-xl font-manrope font-extrabold text-white">₦1,200,000</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-slate-400">Recipients</span>
+<span class="text-white font-bold">120</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-slate-400">Processing Fee</span>
+<span class="text-white font-bold">₦12,000</span>
+</div>
+<div class="pt-6 border-t border-white/10 flex justify-between items-center">
+<span class="text-white font-bold">Grand Total</span>
+<span class="text-2xl font-manrope font-black text-blue-500">₦1,212,000</span>
+</div>
+</div>
+<button class="w-full primary-gradient text-white font-bold py-4 rounded-xl shadow-2xl shadow-blue-500/20 active:scale-95 transition-all mb-4">
+                                    Process Payments
+                                </button>
+<p class="text-center text-xs text-slate-500 px-4">
+                                    By processing, you agree to the Bulk Transfer Terms and Conditions. Funds will be debited from your Primary Wallet.
+                                </p>
+</div>
+<!-- Guidance Card -->
+<div class="glass-card rounded-[24px] p-6 relative overflow-hidden group">
+<div class="relative z-10">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-blue-400">info</span>
+<h4 class="font-bold text-white">Instructions</h4>
+</div>
+<ul class="text-sm text-slate-400 space-y-3">
+<li class="flex gap-2">
+<span class="text-blue-500 font-bold">1.</span>
+                                            Download the CSV template.
+                                        </li>
+<li class="flex gap-2">
+<span class="text-blue-500 font-bold">2.</span>
+                                            Fill in Account Numbers, Bank Codes, and Amounts.
+                                        </li>
+<li class="flex gap-2">
+<span class="text-blue-500 font-bold">3.</span>
+                                            Upload and verify recipient details before processing.
+                                        </li>
+</ul>
+</div>
+<div class="absolute -bottom-8 -right-8 w-32 h-32 bg-blue-500/5 rounded-full blur-3xl group-hover:bg-blue-500/10 transition-colors"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center pt-3 pb-6 px-4 bg-slate-950/80 backdrop-blur-lg border-t border-white/10 shadow-[0_-8px_30px_rgb(0,0,0,0.5)] font-manrope text-[10px] uppercase tracking-wider">
+<a class="flex flex-col items-center text-slate-500 active:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center text-slate-500 active:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined">credit_card</span>
+<span class="mt-1">Cards</span>
+</a>
+<a class="flex flex-col items-center text-slate-500 active:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined">qr_code_scanner</span>
+<span class="mt-1">Pay</span>
+</a>
+<a class="flex flex-col items-center text-blue-500 font-bold scale-110 active:bg-white/5 transition-colors animate-pulse-subtle" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="mt-1">Activity</span>
+</a>
+<a class="flex flex-col items-center text-slate-500 active:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="mt-1">Profile</span>
+</a>
+</nav>
+</div>
+</body></html>

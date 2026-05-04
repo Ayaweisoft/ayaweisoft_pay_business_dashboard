@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-on-surface": "#2e303a",
+                        "primary-container": "#2e5bff",
+                        "tertiary-container": "#c24100",
+                        "on-secondary-fixed-variant": "#004f53",
+                        "tertiary-fixed": "#ffdbcf",
+                        "inverse-surface": "#e2e1ef",
+                        "outline": "#8e90a2",
+                        "on-surface-variant": "#c4c5d9",
+                        "tertiary-fixed-dim": "#ffb59b",
+                        "surface-container-low": "#191b24",
+                        "on-background": "#e2e1ef",
+                        "surface": "#11131c",
+                        "error-container": "#93000a",
+                        "tertiary": "#ffb59b",
+                        "outline-variant": "#434656",
+                        "secondary-fixed-dim": "#00dce6",
+                        "error": "#ffb4ab",
+                        "on-tertiary": "#5b1a00",
+                        "on-secondary": "#00373a",
+                        "surface-dim": "#11131c",
+                        "on-primary-fixed": "#001356",
+                        "primary-fixed": "#dde1ff",
+                        "surface-container-high": "#282933",
+                        "surface-bright": "#373943",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-lowest": "#0c0e17",
+                        "surface-variant": "#33343e",
+                        "on-primary": "#002388",
+                        "surface-container": "#1d1f29",
+                        "on-error": "#690005",
+                        "on-tertiary-fixed": "#380d00",
+                        "on-secondary-container": "#006a6f",
+                        "on-primary-fixed-variant": "#0035be",
+                        "secondary-fixed": "#6ff6ff",
+                        "on-surface": "#e2e1ef",
+                        "primary": "#b8c3ff",
+                        "surface-container-highest": "#33343e",
+                        "on-tertiary-container": "#ffece6",
+                        "inverse-primary": "#124af0",
+                        "on-primary-container": "#efefff",
+                        "primary-fixed-dim": "#b8c3ff",
+                        "on-tertiary-fixed-variant": "#812800",
+                        "secondary": "#dcfdff",
+                        "on-secondary-fixed": "#002022",
+                        "background": "#11131c",
+                        "surface-tint": "#b8c3ff",
+                        "secondary-container": "#00f1fd"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "display": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-card {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glass-glow {
+            box-shadow: 0 0 20px rgba(46, 91, 255, 0.15);
+        }
+        .primary-gradient {
+            background: linear-gradient(135deg, #2e5bff 0%, #00dce6 100%);
+        }
+        body {
+            background-color: #05070A;
+            color: #e2e1ef;
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="overflow-hidden">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-slate-950/40 backdrop-blur-xl border-b border-white/10 shadow-2xl shadow-blue-500/10">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-bold tracking-tight text-white font-manrope">FinNova</span>
+<div class="hidden md:flex items-center gap-6">
+<nav class="flex gap-4">
+<a class="font-manrope text-sm font-medium text-blue-500 border-b-2 border-blue-500 py-5" href="#">Virtual Accounts</a>
+<a class="font-manrope text-sm font-medium text-slate-400 hover:bg-white/5 transition-colors px-3 py-5" href="#">Marketplace</a>
+<a class="font-manrope text-sm font-medium text-slate-400 hover:bg-white/5 transition-colors px-3 py-5" href="#">Settlements</a>
+</nav>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+<input class="bg-white/5 border border-white/10 rounded-lg pl-10 pr-4 py-1.5 text-sm focus:ring-1 focus:ring-primary-container outline-none w-64" placeholder="Search accounts..." type="text"/>
+</div>
+<button class="material-symbols-outlined text-slate-400 hover:bg-white/5 p-2 rounded-full transition-colors">notifications</button>
+<button class="material-symbols-outlined text-slate-400 hover:bg-white/5 p-2 rounded-full transition-colors">settings</button>
+<div class="flex items-center gap-3 pl-4 border-l border-white/10">
+<div class="text-right hidden sm:block">
+<p class="text-xs font-bold text-white">John Doe</p>
+<p class="text-[10px] text-slate-500 uppercase tracking-widest">Premium Tier</p>
+</div>
+<img alt="Profile" class="w-8 h-8 rounded-full border border-primary-container/30" data-alt="A sophisticated close-up portrait of a professional male in his 30s with a clean-cut appearance. The background is a blurred high-tech office with cool blue and cyan ambient lighting. The visual style is premium and high-fidelity, matching a futuristic fintech aesthetic with soft lighting and deep contrast." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjSiwRw6KqSC4MjsHhMDEo3l2-mCVMx6TNtm9kaXYNlLruggmIkFnE79pe6p6NqRmjuXBQn6xMxb3P0vb7BetS_7c5uwyHrPmMW_CZmCVZ1VNVHG9prshRcvdC0SUq-UC2N_-U2I1_-9vzPG7_Jyct2QbKNoNwUs1yIypqF-3bm9uo1zIAfZUAQKa9_FpGehcksAn9qKQzmgSZHyUZhlTgxp56txiW2k7QYIyRgwQx1eOSTIAvzfTDIoqYjs0JuKiyUkkCWtOL2O_L"/>
+</div>
+</div>
+</header>
+<div class="flex h-screen pt-16">
+<!-- SideNavBar -->
+<aside class="hidden lg:flex flex-col h-full py-4 bg-slate-950/60 backdrop-blur-2xl w-64 border-r border-white/10 no-shadow">
+<div class="px-4 py-6">
+<h2 class="text-xl font-black text-white px-4 font-manrope">FinNova Pro</h2>
+<p class="text-[10px] text-slate-500 px-4 uppercase tracking-widest mt-1">Enterprise Admin</p>
+</div>
+<nav class="flex-1 px-4 space-y-1 mt-4">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 text-slate-500 hover:bg-white/5 hover:text-white font-manrope text-sm" href="#">
+<span class="material-symbols-outlined">dashboard</span> Overview
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 bg-blue-600/10 text-blue-400 border-r-2 border-blue-500 font-bold font-manrope text-sm" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span> Wallets
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 text-slate-500 hover:bg-white/5 hover:text-white font-manrope text-sm" href="#">
+<span class="material-symbols-outlined">swap_horiz</span> Transactions
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 text-slate-500 hover:bg-white/5 hover:text-white font-manrope text-sm" href="#">
+<span class="material-symbols-outlined">monitoring</span> Analytics
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 text-slate-500 hover:bg-white/5 hover:text-white font-manrope text-sm" href="#">
+<span class="material-symbols-outlined">verified_user</span> Compliance
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 text-slate-500 hover:bg-white/5 hover:text-white font-manrope text-sm" href="#">
+<span class="material-symbols-outlined">help_center</span> Support
+                </a>
+</nav>
+<div class="px-6 mt-auto">
+<button class="w-full primary-gradient py-3 rounded-xl text-white font-bold text-sm glass-glow scale-95 active:scale-90 transition-transform">
+                    Quick Transfer
+                </button>
+<div class="mt-6 pt-6 border-t border-white/10">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:text-white transition-colors font-manrope text-sm" href="#">
+<span class="material-symbols-outlined">logout</span> Sign Out
+                    </a>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 overflow-y-auto bg-[#05070A] p-8">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+<div>
+<h1 class="text-3xl font-extrabold text-white font-manrope tracking-tight">Virtual Accounts</h1>
+<p class="text-on-surface-variant/60 mt-1">Manage and monitor your enterprise virtual ledger accounts.</p>
+</div>
+<button class="flex items-center justify-center gap-2 primary-gradient px-6 py-3 rounded-xl text-white font-bold text-sm glass-glow transition-all hover:opacity-90">
+<span class="material-symbols-outlined text-lg">add_circle</span>
+                    Create New VA
+                </button>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Main Account List Table -->
+<div class="col-span-12 xl:col-span-8 glass-card rounded-[24px] overflow-hidden">
+<div class="px-6 py-5 border-b border-white/10 flex justify-between items-center bg-white/5">
+<h3 class="font-manrope font-bold text-white">Active Accounts</h3>
+<div class="flex gap-2">
+<button class="text-xs text-slate-400 bg-white/5 px-3 py-1.5 rounded-lg border border-white/10 hover:bg-white/10 transition-colors">Filter</button>
+<button class="text-xs text-slate-400 bg-white/5 px-3 py-1.5 rounded-lg border border-white/10 hover:bg-white/10 transition-colors">Export CSV</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="text-[10px] uppercase tracking-widest text-slate-500 bg-white/2">
+<th class="px-6 py-4 font-semibold">User</th>
+<th class="px-6 py-4 font-semibold">Bank Partner</th>
+<th class="px-6 py-4 font-semibold">Account Number</th>
+<th class="px-6 py-4 font-semibold">Status</th>
+<th class="px-6 py-4 font-semibold text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/5">
+<tr class="hover:bg-white/5 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container/20 flex items-center justify-center text-primary-container font-bold text-sm">JD</div>
+<div>
+<p class="text-sm font-bold text-white">John Doe</p>
+<p class="text-xs text-slate-500">j.doe@enterprise.com</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<img alt="Bank Logo" class="w-5 h-5 rounded-sm grayscale group-hover:grayscale-0 transition-all" onerror="this.src='image-bank-placeholder'" src="https://lh3.googleusercontent.com/aida-public/AB6AXuActy0r4FE908HmWk2XC6Do_Iu6RLMEGulSkg_HuR4aWgyk2tUHi4W2DyVtX8ocql9BFZylDNQNor9m9bAokx6oAZueeIJk_j5PVoVuKHyCuzwJw0F3eAoUpPMoH54r_ESb5D2iFMAvf4Jreh4oqs9JAthxG3LNL_yiRThYgqw6iKZn8Fae7TMh3mRw5YbyE878MSDYnCPDyedCcQQ6p2zofX47HwX70aHh998jpNT65uJZNqza0jLKWjkav7lVDRovYNNkPSXOi0-V"/>
+<span class="text-sm text-on-surface-variant">Providus</span>
+</div>
+</td>
+<td class="px-6 py-5 font-mono text-sm text-blue-400">1234567890</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-[10px] font-bold uppercase tracking-wider">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                            Active
+                                        </span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="material-symbols-outlined text-slate-500 hover:text-white transition-colors">more_vert</button>
+</td>
+</tr>
+<!-- Repeat Rows -->
+<tr class="hover:bg-white/5 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-tertiary-container/20 flex items-center justify-center text-tertiary font-bold text-sm">SA</div>
+<div>
+<p class="text-sm font-bold text-white">Sarah Alabi</p>
+<p class="text-xs text-slate-500">s.alabi@finnova.io</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400">account_balance</span>
+<span class="text-sm text-on-surface-variant">Wema Bank</span>
+</div>
+</td>
+<td class="px-6 py-5 font-mono text-sm text-blue-400">0987654321</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-[10px] font-bold uppercase tracking-wider">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                            Active
+                                        </span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="material-symbols-outlined text-slate-500 hover:text-white transition-colors">more_vert</button>
+</td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-slate-500/20 flex items-center justify-center text-slate-400 font-bold text-sm">MK</div>
+<div>
+<p class="text-sm font-bold text-white">Michael K.</p>
+<p class="text-xs text-slate-500">mk@techcorp.ng</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400">account_balance</span>
+<span class="text-sm text-on-surface-variant">Sterling</span>
+</div>
+</td>
+<td class="px-6 py-5 font-mono text-sm text-blue-400">5566778899</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-400 text-[10px] font-bold uppercase tracking-wider">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                                            Pending
+                                        </span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="material-symbols-outlined text-slate-500 hover:text-white transition-colors">more_vert</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Transaction Sub-list Panel -->
+<div class="col-span-12 xl:col-span-4 flex flex-col gap-6">
+<!-- Selected Account Card -->
+<div class="glass-card rounded-[24px] p-6 relative overflow-hidden">
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-primary-container/20 blur-3xl rounded-full"></div>
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-6">
+<div>
+<p class="text-[10px] text-slate-500 uppercase tracking-widest mb-1">Total Balance</p>
+<h4 class="text-3xl font-black text-white font-manrope">₦2,450,000.00</h4>
+</div>
+<span class="material-symbols-outlined text-blue-500 bg-blue-500/10 p-2 rounded-lg">payments</span>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between text-xs">
+<span class="text-slate-500">Selected Account</span>
+<span class="text-white font-medium">John Doe (1234567890)</span>
+</div>
+<div class="flex justify-between text-xs">
+<span class="text-slate-500">Account Tier</span>
+<span class="text-secondary-fixed-dim font-medium">Enterprise Max</span>
+</div>
+<div class="w-full bg-white/5 h-1 rounded-full overflow-hidden mt-4">
+<div class="w-2/3 h-full primary-gradient"></div>
+</div>
+<p class="text-[9px] text-slate-500 text-center mt-2">67% of monthly transaction limit used</p>
+</div>
+</div>
+</div>
+<!-- Transactions Sub-list -->
+<div class="glass-card rounded-[24px] flex-1 flex flex-col min-h-[400px]">
+<div class="px-6 py-5 border-b border-white/10">
+<h3 class="font-manrope font-bold text-white text-sm">Recent Transactions</h3>
+</div>
+<div class="flex-1 p-4 space-y-4">
+<!-- Transaction Item -->
+<div class="flex items-center justify-between p-3 rounded-xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-emerald-500" style="font-variation-settings: 'FILL' 1;">arrow_downward</span>
+</div>
+<div>
+<p class="text-sm font-bold text-white">₦10,000.00</p>
+<p class="text-[10px] text-slate-500">Credited • 2 mins ago</p>
+</div>
+</div>
+<div class="text-right">
+<span class="text-[10px] font-bold text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded uppercase">Success</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 rounded-xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-emerald-500" style="font-variation-settings: 'FILL' 1;">arrow_downward</span>
+</div>
+<div>
+<p class="text-sm font-bold text-white">₦45,200.00</p>
+<p class="text-[10px] text-slate-500">Credited • 1 hour ago</p>
+</div>
+</div>
+<div class="text-right">
+<span class="text-[10px] font-bold text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded uppercase">Success</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 rounded-xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-slate-500/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-400" style="font-variation-settings: 'FILL' 1;">arrow_upward</span>
+</div>
+<div>
+<p class="text-sm font-bold text-white">₦15,000.00</p>
+<p class="text-[10px] text-slate-500">Debited • 5 hours ago</p>
+</div>
+</div>
+<div class="text-right">
+<span class="text-[10px] font-bold text-slate-400 bg-slate-400/10 px-2 py-0.5 rounded uppercase">Settled</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 rounded-xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/5 opacity-60">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-red-500/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-red-500" style="font-variation-settings: 'FILL' 1;">error</span>
+</div>
+<div>
+<p class="text-sm font-bold text-white">₦5,000.00</p>
+<p class="text-[10px] text-slate-500">Failed • 12 hours ago</p>
+</div>
+</div>
+<div class="text-right">
+<span class="text-[10px] font-bold text-red-400 bg-red-400/10 px-2 py-0.5 rounded uppercase">Failed</span>
+</div>
+</div>
+</div>
+<div class="p-4 bg-white/2 mt-auto rounded-b-[24px]">
+<button class="w-full text-center text-[10px] font-bold text-blue-500 uppercase tracking-widest hover:text-blue-400 transition-colors">View All Transactions</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center pt-3 pb-6 px-4 bg-slate-950/80 backdrop-blur-lg border-t border-white/10 shadow-[0_-8px_30px_rgb(0,0,0,0.5)] rounded-t-3xl">
+<a class="flex flex-col items-center text-slate-500" href="#">
+<span class="material-symbols-outlined text-2xl">home</span>
+<span class="font-manrope text-[10px] uppercase tracking-wider mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center text-slate-500" href="#">
+<span class="material-symbols-outlined text-2xl">credit_card</span>
+<span class="font-manrope text-[10px] uppercase tracking-wider mt-1">Cards</span>
+</a>
+<div class="flex flex-col items-center -mt-8">
+<button class="w-14 h-14 primary-gradient rounded-2xl flex items-center justify-center text-white shadow-lg shadow-blue-500/40 border border-white/20">
+<span class="material-symbols-outlined text-3xl">qr_code_scanner</span>
+</button>
+<span class="font-manrope text-[10px] uppercase tracking-wider mt-2 text-blue-500 font-bold">Pay</span>
+</div>
+<a class="flex flex-col items-center text-blue-500 font-bold scale-110" href="#">
+<span class="material-symbols-outlined text-2xl">history</span>
+<span class="font-manrope text-[10px] uppercase tracking-wider mt-1">Activity</span>
+</a>
+<a class="flex flex-col items-center text-slate-500" href="#">
+<span class="material-symbols-outlined text-2xl">person</span>
+<span class="font-manrope text-[10px] uppercase tracking-wider mt-1">Profile</span>
+</a>
+</nav>
+</body></html>

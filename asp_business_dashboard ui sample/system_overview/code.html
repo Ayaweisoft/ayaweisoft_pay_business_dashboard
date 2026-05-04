@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FinNova Pro | Admin Console</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@300;400;500;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glow-primary {
+            box-shadow: 0 0 20px rgba(46, 91, 255, 0.15);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-on-surface": "#2e303a",
+                        "primary-container": "#2e5bff",
+                        "tertiary-container": "#c24100",
+                        "on-secondary-fixed-variant": "#004f53",
+                        "tertiary-fixed": "#ffdbcf",
+                        "inverse-surface": "#e2e1ef",
+                        "outline": "#8e90a2",
+                        "on-surface-variant": "#c4c5d9",
+                        "tertiary-fixed-dim": "#ffb59b",
+                        "surface-container-low": "#191b24",
+                        "on-background": "#e2e1ef",
+                        "surface": "#11131c",
+                        "error-container": "#93000a",
+                        "tertiary": "#ffb59b",
+                        "outline-variant": "#434656",
+                        "secondary-fixed-dim": "#00dce6",
+                        "error": "#ffb4ab",
+                        "on-error": "#690005",
+                        "background": "#11131c",
+                        "primary": "#b8c3ff",
+                        "on-primary-container": "#efefff"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "display": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary-container/30">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-slate-950/40 backdrop-blur-xl border-b border-white/10 shadow-2xl shadow-blue-500/10">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-bold tracking-tight text-white font-headline">FinNova</span>
+<div class="hidden md:flex items-center gap-6">
+<nav class="flex items-center gap-4">
+<a class="text-blue-500 border-b-2 border-blue-500 font-manrope text-sm font-medium h-16 flex items-center" href="#">Overview</a>
+<a class="text-slate-400 font-manrope text-sm font-medium hover:bg-white/5 transition-colors px-3 h-10 flex items-center rounded-lg" href="#">Systems</a>
+<a class="text-slate-400 font-manrope text-sm font-medium hover:bg-white/5 transition-colors px-3 h-10 flex items-center rounded-lg" href="#">Reports</a>
+</nav>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-400 hover:bg-white/5 rounded-full transition-transform active:scale-90">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-slate-400 hover:bg-white/5 rounded-full transition-transform active:scale-90">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="flex items-center gap-3 pl-4 border-l border-white/10">
+<div class="w-8 h-8 rounded-full overflow-hidden border border-white/20">
+<img alt="User profile avatar" data-alt="A professional portrait of a senior financial administrator in a sharp navy suit, captured with high-end cinematic lighting in a modern architectural setting. The image features a shallow depth of field, highlighting the subject's expert demeanor against a blurred background of translucent glass panels and soft blue ambient light, maintaining a premium bank-grade aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7pOarJWyfA0EA8JxbDulgrIyPio3kpvUZg9p2fBOCjC8CpKy3P6nn4XbRO7p6ydVUpJGu_3BMtq2Q3FG-QZzIXHSGHyjDUKrv1P5Vd-jB8q8bBrjb73ef4D0bRa-yCUbqhoKa-9oHflHE6PvFf5tAAzpyQbENT0_586WI1VQLUhwWQeuRKNQ2G4UPeJaqAOxztGBayRtDuvGOe1tlXaUuBWkxFsPk7XrMaprS_VovBr4dUKgG_o372fcApQ-OVKEpyLt8_pTAwAWb"/>
+</div>
+<span class="font-manrope text-sm font-medium text-white">Profile</span>
+</div>
+</div>
+</header>
+<div class="flex pt-16 min-h-screen">
+<!-- SideNavBar -->
+<aside class="hidden lg:flex flex-col h-[calc(100vh-64px)] w-64 fixed left-0 bg-slate-950/60 backdrop-blur-2xl border-r border-white/10 py-4 z-40">
+<div class="px-6 py-4">
+<h2 class="text-xl font-black text-white font-headline">FinNova Pro</h2>
+<p class="text-xs text-slate-500 font-manrope">Enterprise Admin</p>
+</div>
+<nav class="flex-1 mt-6 px-3 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 bg-blue-600/10 text-blue-400 border-r-2 border-blue-500 font-bold transition-all duration-200 font-manrope text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-white/5 hover:text-white transition-all duration-200 font-manrope text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="health_and_safety">health_and_safety</span>
+<span>System Health</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-white/5 hover:text-white transition-all duration-200 font-manrope text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span>User Management</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-white/5 hover:text-white transition-all duration-200 font-manrope text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="swap_horiz">swap_horiz</span>
+<span>Transactions</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-white/5 hover:text-white transition-all duration-200 font-manrope text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="gpp_maybe">gpp_maybe</span>
+<span>Fraud Monitor</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-white/5 hover:text-white transition-all duration-200 font-manrope text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="px-6 py-4 border-t border-white/10">
+<button class="w-full py-3 bg-gradient-to-br from-primary-container to-secondary-fixed-dim text-white rounded-xl font-bold text-sm glow-primary flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                    Quick Transfer
+                </button>
+</div>
+<div class="px-3 pb-8">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-white/5 hover:text-white transition-all duration-200 font-manrope text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Sign Out</span>
+</a>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 lg:ml-64 p-8 bg-[#05070A]">
+<div class="max-w-7xl mx-auto space-y-8">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<div>
+<h1 class="text-3xl font-extrabold text-white font-headline tracking-tight">System Overview</h1>
+<p class="text-slate-400 mt-1">Real-time health and reconciliation monitoring</p>
+</div>
+<div class="flex gap-3">
+<button class="px-4 py-2 glass-card rounded-lg text-sm font-semibold text-white flex items-center gap-2 hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="download">download</span>
+                            Export Report
+                        </button>
+<button class="px-4 py-2 bg-primary-container text-white rounded-lg text-sm font-semibold hover:bg-blue-700 transition-colors">
+                            Refresh Data
+                        </button>
+</div>
+</div>
+<!-- Alert Message -->
+<div class="glass-card rounded-2xl p-4 border-l-4 border-error flex items-center justify-between animate-pulse-subtle">
+<div class="flex items-center gap-4">
+<div class="bg-on-error w-10 h-10 rounded-full flex items-center justify-center text-error">
+<span class="material-symbols-outlined" data-icon="warning">warning</span>
+</div>
+<div>
+<p class="text-error font-bold text-lg">Reconciliation Discrepancy Detected</p>
+<p class="text-slate-300 text-sm">A difference of <span class="font-bold text-white">₦200,000</span> was identified between System and Bank balances.</p>
+</div>
+</div>
+<button class="text-sm font-bold text-primary px-4 py-2 hover:bg-primary/10 rounded-lg transition-colors">
+                        Investigate Now
+                    </button>
+</div>
+<!-- Bento Grid: Financial Stats -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- System Balance -->
+<div class="glass-card rounded-[24px] p-8 flex flex-col justify-between h-56 group hover:border-white/20 transition-all duration-300">
+<div class="flex justify-between items-start">
+<div class="bg-primary/10 p-3 rounded-xl text-primary">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+</div>
+<span class="text-green-400 text-xs font-bold uppercase tracking-widest">+2.4% vs LY</span>
+</div>
+<div>
+<p class="text-slate-400 text-sm font-medium">System Balance</p>
+<h2 class="text-4xl font-black text-white mt-2 font-headline tracking-tighter">₦120,000,000</h2>
+</div>
+</div>
+<!-- Bank Balance -->
+<div class="glass-card rounded-[24px] p-8 flex flex-col justify-between h-56 group hover:border-white/20 transition-all duration-300">
+<div class="flex justify-between items-start">
+<div class="bg-secondary-fixed-dim/10 p-3 rounded-xl text-secondary-fixed-dim">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+</div>
+<span class="text-slate-500 text-xs font-bold uppercase tracking-widest">Live Sync</span>
+</div>
+<div>
+<p class="text-slate-400 text-sm font-medium">Bank Balance</p>
+<h2 class="text-4xl font-black text-white mt-2 font-headline tracking-tighter">₦119,800,000</h2>
+</div>
+</div>
+<!-- Discrepancy Highlight -->
+<div class="glass-card rounded-[24px] p-8 flex flex-col justify-between h-56 bg-error-container/20 border-error/20 group hover:border-error/40 transition-all duration-300">
+<div class="flex justify-between items-start">
+<div class="bg-error/20 p-3 rounded-xl text-error">
+<span class="material-symbols-outlined" data-icon="unfold_more">unfold_more</span>
+</div>
+<span class="bg-error text-on-error text-[10px] px-2 py-1 rounded font-black uppercase">Critical</span>
+</div>
+<div>
+<p class="text-error font-medium text-sm">Discrepancy Amount</p>
+<h2 class="text-4xl font-black text-error mt-2 font-headline tracking-tighter">₦200,000</h2>
+</div>
+</div>
+</div>
+<!-- Secondary Metrics & Chart Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+<!-- Chart Area -->
+<div class="lg:col-span-3 glass-card rounded-[24px] p-8 min-h-[400px] relative overflow-hidden">
+<div class="flex justify-between items-center mb-8">
+<div>
+<h3 class="text-xl font-bold text-white font-headline">Transactional Volume</h3>
+<p class="text-slate-400 text-sm">Hourly aggregate for last 24 hours</p>
+</div>
+<select class="bg-slate-900 border-white/10 rounded-lg text-xs text-white focus:ring-primary">
+<option>Last 24 Hours</option>
+<option>Last 7 Days</option>
+</select>
+</div>
+<!-- Simulated Chart Grid -->
+<div class="w-full h-64 flex items-end gap-2 relative">
+<div class="flex-1 h-[60%] bg-white/5 rounded-t-lg hover:bg-primary-container/30 transition-colors"></div>
+<div class="flex-1 h-[40%] bg-white/5 rounded-t-lg hover:bg-primary-container/30 transition-colors"></div>
+<div class="flex-1 h-[80%] bg-primary-container/50 rounded-t-lg hover:bg-primary-container/80 transition-colors relative">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-white text-black px-2 py-1 rounded text-[10px] font-bold">₦4.2M</div>
+</div>
+<div class="flex-1 h-[55%] bg-white/5 rounded-t-lg hover:bg-primary-container/30 transition-colors"></div>
+<div class="flex-1 h-[70%] bg-white/5 rounded-t-lg hover:bg-primary-container/30 transition-colors"></div>
+<div class="flex-1 h-[30%] bg-white/5 rounded-t-lg hover:bg-primary-container/30 transition-colors"></div>
+<div class="flex-1 h-[90%] bg-white/5 rounded-t-lg hover:bg-primary-container/30 transition-colors"></div>
+<div class="flex-1 h-[45%] bg-white/5 rounded-t-lg hover:bg-primary-container/30 transition-colors"></div>
+<div class="flex-1 h-[65%] bg-white/5 rounded-t-lg hover:bg-primary-container/30 transition-colors"></div>
+<div class="flex-1 h-[85%] bg-white/5 rounded-t-lg hover:bg-primary-container/30 transition-colors"></div>
+</div>
+<div class="flex justify-between mt-4 text-[10px] text-slate-500 font-bold uppercase tracking-widest">
+<span>00:00</span>
+<span>06:00</span>
+<span>12:00</span>
+<span>18:00</span>
+<span>23:59</span>
+</div>
+</div>
+<!-- Sidebar Metrics -->
+<div class="lg:col-span-1 space-y-6">
+<div class="glass-card rounded-[24px] p-6 h-1/2 flex flex-col justify-center">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</div>
+<div>
+<p class="text-slate-500 text-xs font-bold uppercase">Total Users</p>
+<p class="text-2xl font-black text-white font-headline">25,000</p>
+</div>
+</div>
+<div class="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
+<div class="bg-blue-500 w-3/4 h-full"></div>
+</div>
+<p class="text-[10px] text-slate-500 mt-2">Target: 30,000 users this month</p>
+</div>
+<div class="glass-card rounded-[24px] p-6 h-1/2 flex flex-col justify-center">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-12 h-12 rounded-full bg-cyan-500/10 flex items-center justify-center text-cyan-500">
+<span class="material-symbols-outlined" data-icon="support_agent">support_agent</span>
+</div>
+<div>
+<p class="text-slate-500 text-xs font-bold uppercase">Total Agents</p>
+<p class="text-2xl font-black text-white font-headline">1,200</p>
+</div>
+</div>
+<div class="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
+<div class="bg-cyan-500 w-1/2 h-full"></div>
+</div>
+<p class="text-[10px] text-slate-500 mt-2">Active: 1,180 currently online</p>
+</div>
+</div>
+</div>
+<!-- Recent Transactions / Action Area -->
+<div class="glass-card rounded-[24px] overflow-hidden border-white/5">
+<div class="px-8 py-6 border-b border-white/10 flex justify-between items-center">
+<h3 class="text-lg font-bold text-white font-headline">Recent System Logs</h3>
+<button class="text-primary text-sm font-bold flex items-center gap-1 hover:underline">
+                            View Details
+                            <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-white/5 text-[10px] font-black uppercase tracking-widest text-slate-500">
+<tr>
+<th class="px-8 py-4">Transaction ID</th>
+<th class="px-8 py-4">Entity</th>
+<th class="px-8 py-4">Type</th>
+<th class="px-8 py-4">Amount</th>
+<th class="px-8 py-4">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/5 text-sm">
+<tr class="hover:bg-white/5 transition-colors cursor-pointer group">
+<td class="px-8 py-4 text-white font-mono">#TXN-90210</td>
+<td class="px-8 py-4">Agent Alpha (ID: 442)</td>
+<td class="px-8 py-4 text-slate-400">Wallet Funding</td>
+<td class="px-8 py-4 font-bold text-white">₦500,000</td>
+<td class="px-8 py-4">
+<span class="px-3 py-1 rounded-full bg-green-500/10 text-green-500 text-[10px] font-black uppercase">Verified</span>
+</td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors cursor-pointer group">
+<td class="px-8 py-4 text-white font-mono">#TXN-90211</td>
+<td class="px-8 py-4">System Settlement</td>
+<td class="px-8 py-4 text-slate-400">Bank Reversal</td>
+<td class="px-8 py-4 font-bold text-white">₦200,000</td>
+<td class="px-8 py-4">
+<span class="px-3 py-1 rounded-full bg-error/10 text-error text-[10px] font-black uppercase">Pending Reconcile</span>
+</td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors cursor-pointer group">
+<td class="px-8 py-4 text-white font-mono">#TXN-90212</td>
+<td class="px-8 py-4">Global Disburse</td>
+<td class="px-8 py-4 text-slate-400">Payroll</td>
+<td class="px-8 py-4 font-bold text-white">₦12,450,000</td>
+<td class="px-8 py-4">
+<span class="px-3 py-1 rounded-full bg-green-500/10 text-green-500 text-[10px] font-black uppercase">Verified</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center pt-3 pb-6 px-4 bg-slate-950/80 backdrop-blur-lg border-t border-white/10 shadow-[0_-8px_30px_rgb(0,0,0,0.5)] rounded-t-3xl">
+<button class="flex flex-col items-center text-blue-500 font-bold scale-110 animate-pulse-subtle">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-manrope text-[10px] uppercase tracking-wider">Home</span>
+</button>
+<button class="flex flex-col items-center text-slate-500 active:bg-white/5">
+<span class="material-symbols-outlined" data-icon="credit_card">credit_card</span>
+<span class="font-manrope text-[10px] uppercase tracking-wider">Cards</span>
+</button>
+<button class="flex flex-col items-center text-slate-500 active:bg-white/5">
+<span class="material-symbols-outlined" data-icon="qr_code_scanner">qr_code_scanner</span>
+<span class="font-manrope text-[10px] uppercase tracking-wider">Pay</span>
+</button>
+<button class="flex flex-col items-center text-slate-500 active:bg-white/5">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-manrope text-[10px] uppercase tracking-wider">Activity</span>
+</button>
+<button class="flex flex-col items-center text-slate-500 active:bg-white/5">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-manrope text-[10px] uppercase tracking-wider">Profile</span>
+</button>
+</nav>
+<!-- Background Decoration Elements -->
+<div class="fixed top-0 right-0 -z-10 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] pointer-events-none"></div>
+<div class="fixed bottom-0 left-0 -z-10 w-[400px] h-[400px] bg-secondary-fixed-dim/5 rounded-full blur-[100px] pointer-events-none"></div>
+</body></html>
