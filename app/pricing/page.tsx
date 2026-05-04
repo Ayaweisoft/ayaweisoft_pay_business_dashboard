@@ -109,9 +109,9 @@ export default function PricingPage() {
 
             <Link
               href="/register"
-              className={`block text-center py-2 rounded-lg font-semibold ${
+              className={`block text-center px-8 py-4 rounded-xl text-lg font-semibold ${
                 plan.highlight
-                  ? "bg-gradient-to-r from-blue-500 to-indigo-500"
+                  ? "bg-linear-to-r from-blue-500 to-indigo-500"
                   : "bg-white/5"
               }`}
             >
@@ -156,7 +156,7 @@ export default function PricingPage() {
 
         <Link
           href="/contact"
-          className="px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl text-lg font-semibold"
+          className="px-8 py-4 bg-linear-to-r from-blue-500 to-indigo-500 rounded-xl text-lg font-semibold"
         >
           Contact Sales
         </Link>

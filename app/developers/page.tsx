@@ -27,7 +27,7 @@ export default function Developers() {
         </p>
 
         <div className="mt-8 flex justify-center gap-4">
-          <Link href="/register" className="px-6 py-3 bg-linear-to-r from-blue-500 to-indigo-500 rounded-xl">
+          <Link href="/register" className="px-8 py-4 bg-linear-to-r from-blue-500 to-indigo-500 rounded-xl text-lg font-semibold">
             Get API Keys
           </Link>
           <Link href="/docs" className="px-6 py-3 bg-white/5 rounded-xl">
@@ -139,7 +139,7 @@ export default function Developers() {
 
         <Link
           href="/register"
-          className="px-8 py-4 bg-linear-to-r from-blue-500 to-indigo-500 rounded-xl text-lg"
+          className="px-8 py-4 bg-linear-to-r from-blue-500 to-indigo-500 rounded-xl text-lg font-semibold"
         >
           Create Free Account
         </Link>
