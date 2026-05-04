@@ -2,7 +2,7 @@
 "use client";
 
 import Navbar from "@/components/AppNavbar";
-import Footer from "@/components/AppFooter";
+
 import { motion } from "framer-motion";
 import Link from "next/link";
 
@@ -145,7 +145,7 @@ export default function Developers() {
         </Link>
       </section>
 
-      <Footer />
+
     </main>
   );
 }

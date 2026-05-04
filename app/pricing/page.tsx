@@ -1,7 +1,7 @@
 "use client";
 
 import AppNavbar from "@/components/AppNavbar";
-import AppFooter from "@/components/AppFooter";
+
 import { motion } from "framer-motion";
 import Link from "next/link";
 
@@ -168,7 +168,7 @@ export default function PricingPage() {
         Banking services are provided by Mbawula Microfinance Bank, licensed by the Central Bank of Nigeria.
       </section>
 
-      <AppFooter />
+
     </main>
   );
 }
