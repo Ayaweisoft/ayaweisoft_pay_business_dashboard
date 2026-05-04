@@ -8,7 +8,14 @@ import {
 import { StatusBadge } from "../../components/StatusBadge";
 
 const API_KEY_HIDDEN = process.env.NEXT_PUBLIC_STRIPE_KEY_MASK || "***REMOVED*******************************";
-const API_KEY_REAL = typeof window !== 'undefined' ? (window.ENV?.STRIPE_API_KEY || "") : "";
+interface EnvWindow extends Window {
+  ENV?: {
+    STRIPE_API_KEY?: string;
+  };
+}
+const API_KEY_REAL = typeof window !== 'undefined' && (window as EnvWindow).ENV?.STRIPE_API_KEY
+  ? (window as EnvWindow).ENV?.STRIPE_API_KEY || ""
+  : "";
 
 const INITIAL_LOGS = [
   { event: "virtual_account.credited", status: 200, time: "2026-05-03 10:12", message: "Success" },
