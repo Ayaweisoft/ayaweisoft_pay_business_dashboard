@@ -27,7 +27,7 @@ export default function Navbar() {
         </Link>
         <Link
           href="/register"
-          className="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-500 text-white"
+          className="px-4 py-2 rounded-lg bg-linear-to-r from-blue-500 to-indigo-500 text-white"
         >
           Get Started
         </Link>

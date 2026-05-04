@@ -96,7 +96,7 @@ export default function ApiTester() {
       <button
         onClick={sendRequest}
         disabled={loading}
-        className="px-5 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 rounded font-semibold"
+        className="px-5 py-2 bg-linear-to-r from-blue-500 to-indigo-500 rounded font-semibold"
       >
         {loading ? "Sending..." : "Send Request"}
       </button>

@@ -20,7 +20,7 @@ export default function Home() {
           className="text-5xl md:text-7xl font-bold"
         >
           Banking infrastructure for{" "}
-          <span className="bg-gradient-to-r from-blue-500 to-emerald-400 bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-blue-500 to-emerald-400 bg-clip-text text-transparent">
             modern fintech
           </span>
         </motion.h1>
@@ -32,7 +32,7 @@ export default function Home() {
         <div className="mt-10 flex justify-center gap-4">
           <Link
             href="/register"
-            className="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-500"
+            className="px-6 py-3 rounded-xl bg-linear-to-r from-blue-500 to-indigo-500"
           >
             Start Building
           </Link>
