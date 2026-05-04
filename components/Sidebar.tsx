@@ -60,21 +60,20 @@ export function Sidebar() {
       {/* Sidebar Container */}
       <aside
         className={cn(
-          "fixed top-0 left-0 z-50 h-screen w-64 bg-bg-dark border-r border-border flex flex-col px-4 py-6 transition-transform duration-300 ease-in-out md:static md:translate-x-0",
+          "fixed top-0 left-0 z-50 h-screen w-64 bg-bg-dark/90 glass-card shadow-glass flex flex-col px-4 py-6 transition-transform duration-300 ease-in-out md:static md:translate-x-0",
           isOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
         {/* Header Section */}
         <div className="flex items-center justify-between mb-10 px-2">
           <Link href="/dashboard" className="flex items-center gap-3 group" onClick={closeSidebar}>
-            <div className="relative w-9 h-9 transition-transform group-hover:scale-110">
-              <Image 
-                src="/asp_logo.png" 
-                alt="Ayaweisoft Pay" 
-                fill
-                className="object-contain"
-              />
-            </div>
+            <Image 
+              src="/asp_logo.png" 
+              alt="Ayaweisoft Pay" 
+              width={36}
+              height={36}
+              className="object-contain opacity-80 drop-shadow-[0_2px_8px_rgba(46,91,255,0.15)] transition-transform group-hover:scale-110"
+            />
             <span className="text-white font-bold text-lg tracking-tight">
               Ayaweisoft <span className="text-primary">Pay</span>
             </span>
@@ -102,8 +101,8 @@ export function Sidebar() {
         </nav>
 
         {/* Footer/User Section Placeholder */}
-        <div className="pt-4 mt-4 border-t border-border">
-            <div className="px-4 py-3 rounded-xl bg-white/5 flex items-center gap-3">
+        <div className="pt-4 mt-4">
+          <div className="px-4 py-3 rounded-xl bg-white/5 flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-xs">
                     JD
                 </div>
