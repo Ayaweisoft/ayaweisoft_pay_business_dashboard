@@ -7,8 +7,8 @@ import {
 } from "lucide-react";
 import { StatusBadge } from "../../components/StatusBadge";
 
-const API_KEY_HIDDEN = "***REMOVED*******************************";
-const API_KEY_REAL = "***REMOVED***51MzhW2L9xY8uR0P1vQ7k9jB4n6m5";
+const API_KEY_HIDDEN = process.env.NEXT_PUBLIC_STRIPE_KEY_MASK || "***REMOVED*******************************";
+const API_KEY_REAL = typeof window !== 'undefined' ? (window.ENV?.STRIPE_API_KEY || "") : "";
 
 const INITIAL_LOGS = [
   { event: "virtual_account.credited", status: 200, time: "2026-05-03 10:12", message: "Success" },
@@ -22,9 +22,11 @@ export default function ApiClient() {
   const [webhookUrl, setWebhookUrl] = useState("https://api.yourdomain.com/webhooks/ayaweisoft");
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(API_KEY_REAL);
-    setCopySuccess(true);
-    setTimeout(() => setCopySuccess(false), 2000);
+    if (API_KEY_REAL) {
+      navigator.clipboard.writeText(API_KEY_REAL);
+      setCopySuccess(true);
+      setTimeout(() => setCopySuccess(false), 2000);
+    }
   };
 
   return (
@@ -51,7 +53,7 @@ export default function ApiClient() {
                 </label>
                 <div className="flex items-center gap-2">
                   <div className="flex-1 bg-bg-dark border border-border rounded-lg px-4 py-3 font-mono text-sm text-white/90 overflow-hidden truncate">
-                    {showKey ? API_KEY_REAL : API_KEY_HIDDEN}
+                    {showKey ? (API_KEY_REAL || "Set STRIPE_API_KEY in .env") : API_KEY_HIDDEN}
                   </div>
                   <button 
                     onClick={() => setShowKey(!showKey)}
