@@ -1,40 +1,68 @@
 "use client";
 
 import { useState } from "react";
-import { LucidePlus, LucideX } from "lucide-react";
+import { LucidePlus } from "lucide-react";
+import { Modal } from "./Modal";
+import { FormInput } from "./FormInput";
 
-export function AddItemModal({ open, onClose, onAdd }: { open: boolean; onClose: () => void; onAdd: (value: string) => void }) {
+interface AddItemModalProps {
+  open: boolean;
+  onClose: () => void;
+  onAdd: (value: string) => void;
+  title?: string;
+  placeholder?: string;
+  label?: string;
+  submitLabel?: string;
+}
+
+export function AddItemModal({
+  open,
+  onClose,
+  onAdd,
+  title = "Add Item",
+  placeholder = "Enter item name…",
+  label = "Name",
+  submitLabel = "Add",
+}: AddItemModalProps) {
   const [value, setValue] = useState("");
 
-  if (!open) return null;
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!value.trim()) return;
+    onAdd(value.trim());
+    setValue("");
+    onClose();
+  };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-      <div className="bg-bg-card rounded-2xl shadow-xl p-8 w-full max-w-sm relative">
-        <button
-          className="absolute top-3 right-3 p-2 rounded-full hover:bg-white/10 text-white/60"
-          onClick={onClose}
-          aria-label="Close"
-        >
-          <LucideX size={20} />
-        </button>
-        <h2 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-          <LucidePlus size={20} /> Add Item
-        </h2>
-        <input
-          className="w-full px-4 py-2 rounded-lg bg-bg-dark border border-border text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-primary mb-4"
-          placeholder="Enter item name..."
+    <Modal open={open} onClose={onClose} title={title} eyebrow="Action">
+      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+        <FormInput
+          label={label}
+          placeholder={placeholder}
           value={value}
           onChange={e => setValue(e.target.value)}
+          autoFocus
         />
-        <button
-          className="w-full py-2 rounded-lg bg-primary text-white font-semibold hover:bg-primary/90 transition disabled:opacity-50"
-          onClick={() => { if (value.trim()) { onAdd(value); setValue(""); onClose(); } }}
-          disabled={!value.trim()}
-        >
-          Add
-        </button>
-      </div>
-    </div>
+        <div style={{ display: "flex", gap: 10, paddingTop: 4 }}>
+          <button
+            type="button"
+            className="btn btn-ghost"
+            style={{ flex: 1, justifyContent: "center" }}
+            onClick={onClose}
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            className="btn btn-gradient"
+            style={{ flex: 2, justifyContent: "center" }}
+            disabled={!value.trim()}
+          >
+            <LucidePlus size={14} /> {submitLabel}
+          </button>
+        </div>
+      </form>
+    </Modal>
   );
 }

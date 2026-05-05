@@ -2,12 +2,14 @@
 
 import { useState } from "react";
 import { 
-  LucideKey, LucideCopy, LucideRefreshCw, 
-  LucideGlobe, LucideCheckCircle, LucideEye, LucideEyeOff 
+  LucideCopy,
+  LucideRefreshCw,
+  LucideCheckCircle,
+  LucideEye,
+  LucideEyeOff
 } from "lucide-react";
-import { StatusBadge } from "../../components/StatusBadge";
 
-const API_KEY_HIDDEN = process.env.NEXT_PUBLIC_STRIPE_KEY_MASK;
+const API_KEY_HIDDEN = process.env.NEXT_PUBLIC_STRIPE_KEY_MASK ?? "sk_live_••••••••••••••••";
 interface EnvWindow extends Window {
   ENV?: {
     STRIPE_API_KEY?: string;
@@ -37,118 +39,115 @@ export default function ApiClient() {
   };
 
   return (
-    <div className="flex flex-col gap-8 p-4 md:p-8">
-      {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold text-white mb-1">API & Webhooks</h1>
-        <p className="text-white/60 text-sm">Securely manage your integration and monitor server-to-server events.</p>
+    <div className="page-root">
+      {/* ── Header ─────────────────────────────────────────────── */}
+      <div className="page-header">
+        <div>
+          <h1 className="page-title">API &amp; Webhooks</h1>
+          <p className="page-sub">Securely manage your integration and monitor server-to-server events.</p>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* API Keys Section */}
-        <div className="lg:col-span-2 flex flex-col gap-6">
-          <section className="glass-card p-6">
-            <div className="flex items-center gap-2 mb-6">
-              <LucideKey className="text-primary" size={20} />
-              <h2 className="text-lg font-bold text-white">API Keys</h2>
-            </div>
+      {/* ── Summary Cards (API Key, Webhook) ───────────────────────────── */}
+      <div className="sum-grid api-grid">
+        <section className="sum-card api-card" aria-label="API key card">
+          <span className="sum-label">API Key</span>
+          <span className="sum-value mono api-secret">
+            {showKey ? (API_KEY_REAL || "Set STRIPE_API_KEY in .env") : API_KEY_HIDDEN}
+          </span>
+          <span className="sum-sub">Live Secret Key</span>
 
-            <div className="space-y-4">
-              <div>
-                <label className="text-xs font-semibold text-white/40 uppercase tracking-wider mb-2 block">
-                  Live Secret Key
-                </label>
-                <div className="flex items-center gap-2">
-                  <div className="flex-1 bg-bg-dark border border-border rounded-lg px-4 py-3 font-mono text-sm text-white/90 overflow-hidden truncate">
-                    {showKey ? (API_KEY_REAL || "Set STRIPE_API_KEY in .env") : API_KEY_HIDDEN}
-                  </div>
-                  <button 
-                    onClick={() => setShowKey(!showKey)}
-                    className="p-3 rounded-lg bg-white/5 border border-border text-white/60 hover:text-white transition"
-                    title={showKey ? "Hide key" : "Show key"}
-                  >
-                    {showKey ? <LucideEyeOff size={18} /> : <LucideEye size={18} />}
-                  </button>
-                  <button 
-                    onClick={handleCopy}
-                    className="p-3 rounded-lg bg-white/5 border border-border text-white/60 hover:text-white transition"
-                  >
-                    {copySuccess ? <LucideCheckCircle size={18} className="text-success" /> : <LucideCopy size={18} />}
-                  </button>
-                </div>
-                <p className="mt-3 text-xs text-warning/80">
-                  Keep this key secret. If compromised, rotate it immediately using the dashboard.
-                </p>
-              </div>
-              <button className="flex items-center gap-2 text-sm text-primary font-medium hover:underline">
-                <LucideRefreshCw size={14} /> Roll API Key
-              </button>
-            </div>
-          </section>
-
-          {/* Webhook Configuration */}
-          <section className="glass-card p-6">
-            <div className="flex items-center gap-2 mb-6">
-              <LucideGlobe className="text-success" size={20} />
-              <h2 className="text-lg font-bold text-white">Webhook Settings</h2>
-            </div>
-            
-            <div className="space-y-6">
-              <div>
-                <label className="text-xs font-semibold text-white/40 uppercase tracking-wider mb-2 block">
-                  Endpoint URL
-                </label>
-                <input 
-                  type="url"
-                  value={webhookUrl}
-                  onChange={(e) => setWebhookUrl(e.target.value)}
-                  className="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-sm text-white focus:ring-1 focus:ring-primary outline-none"
-                />
-              </div>
-              
-              <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-border/50">
-                <div>
-                  <p className="text-sm font-bold text-white">Production Mode</p>
-                  <p className="text-xs text-white/40">Events will be sent to your live URL.</p>
-                </div>
-                <div className="w-12 h-6 bg-primary rounded-full relative cursor-pointer">
-                  <div className="absolute right-1 top-1 w-4 h-4 bg-white rounded-full shadow-sm" />
-                </div>
-              </div>
-              
-              <button className="px-6 py-2.5 bg-primary text-white text-sm font-bold rounded-lg hover:opacity-90 transition">
-                Save Webhook
-              </button>
-            </div>
-          </section>
-        </div>
-
-        {/* API Event Logs */}
-        <div className="lg:col-span-1">
-          <section className="glass-card p-6 h-full flex flex-col">
-            <h2 className="text-lg font-bold text-white mb-6">Recent Events</h2>
-            <div className="space-y-4 flex-1">
-              {INITIAL_LOGS.map((log, idx) => (
-                <div key={idx} className="p-4 rounded-xl bg-white/5 border border-border hover:bg-white/10 transition cursor-default group">
-                  <div className="flex justify-between items-start mb-2">
-                    <span className="text-xs font-mono text-primary group-hover:text-white transition">
-                      {log.event}
-                    </span>
-                    <span className={`text-[10px] font-bold ${log.status >= 400 ? 'text-danger' : 'text-success'}`}>
-                      {log.status}
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center text-[11px]">
-                    <span className="text-white/40">{log.time}</span>
-                    <span className="text-white/60">{log.message}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <button className="mt-6 w-full py-2 border border-border rounded-lg text-xs text-white/60 hover:text-white hover:bg-white/5 transition">
-              View All Logs
+          <div className="api-actions">
+            <button
+              onClick={() => setShowKey(!showKey)}
+              className="btn btn-ghost btn-sm"
+              title={showKey ? "Hide key" : "Show key"}
+            >
+              {showKey ? <LucideEyeOff size={16} /> : <LucideEye size={16} />}
             </button>
-          </section>
+            <button
+              onClick={handleCopy}
+              className="btn btn-ghost btn-sm"
+            >
+              {copySuccess ? <LucideCheckCircle size={16} className="text-success" /> : <LucideCopy size={16} />}
+            </button>
+            <button className="btn btn-primary btn-sm">
+              <LucideRefreshCw size={13} /> Roll Key
+            </button>
+          </div>
+
+          <span className="field-hint api-note">
+            Keep this key secret. If compromised, rotate it immediately.
+          </span>
+        </section>
+
+        <section className="sum-card api-card" aria-label="Webhook card">
+          <span className="sum-label">Webhook</span>
+          <span className="sum-sub">Endpoint URL</span>
+
+          <div className="field api-webhook-field">
+            <input
+              type="url"
+              value={webhookUrl}
+              onChange={e => setWebhookUrl(e.target.value)}
+              className="input input-lg"
+              placeholder="Webhook endpoint URL"
+            />
+          </div>
+
+          <div className="api-switch-row">
+            <div>
+              <p className="webhook-prod-title">Production Mode</p>
+              <p className="webhook-prod-desc">Events will be sent to your live URL.</p>
+            </div>
+            <div className="webhook-prod-switch api-switch-on" aria-hidden="true">
+              <div className="webhook-prod-dot" />
+            </div>
+          </div>
+
+          <button className="btn btn-primary btn-lg">
+            Save Webhook
+          </button>
+        </section>
+      </div>
+
+      {/* ── Logs Panel ──────────────────────────────────────────────── */}
+      <div className="panel">
+        <div className="panel-header">
+          <span className="panel-title">Recent API/Webhook Events</span>
+        </div>
+        <div className="table-wrap">
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th>Event</th>
+                <th>Status</th>
+                <th>Time</th>
+                <th>Message</th>
+              </tr>
+            </thead>
+            <tbody>
+              {INITIAL_LOGS.map((log) => (
+                <tr key={`${log.event}-${log.time}`}>
+                  <td>
+                    <span className="mono api-event">{log.event}</span>
+                  </td>
+                  <td>
+                    <span className={`badge ${log.status >= 400 ? 'badge--error' : 'badge--success'}`}>{log.status}</span>
+                  </td>
+                  <td>
+                    <span className="api-time">{log.time}</span>
+                  </td>
+                  <td>
+                    <span className="api-message">{log.message}</span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="panel-header api-panel-footer">
+          <button className="btn btn-ghost btn-xs">View All Logs</button>
         </div>
       </div>
     </div>

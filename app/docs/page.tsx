@@ -1,6 +1,7 @@
 "use client";
 
 import AppNavbar from "@/components/AppNavbar";
+import AppFooter from "@/components/AppFooter";
 
 import { useState } from "react";
 import ApiTester from "@/components/ApiTester";
@@ -52,53 +53,54 @@ echo $response->getBody();`,
   };
 
   return (
-    <main className="bg-[#0B1220] text-white min-h-screen">
+    <main className="mk-root">
       <AppNavbar />
 
-      <div className="flex">
+      <div className="mk-shell mk-section mk-section--compact">
+        <div className="mk-docs-wrap">
 
         {/* SIDEBAR */}
-        <aside className="w-64 hidden md:block border-r border-white/5 p-6 sticky top-20 h-screen overflow-y-auto">
-          <nav className="space-y-3 text-sm text-white/60">
+        <aside className="mk-docs-sidebar mk-card hidden md:block">
+          <nav className="mk-docs-nav space-y-4">
 
             <div>
-              <p className="text-white font-semibold mb-2">Getting Started</p>
-              <a href="#intro" className="block hover:text-white">Introduction</a>
-              <a href="#auth" className="block hover:text-white">Authentication</a>
-              <a href="#errors" className="block hover:text-white">Error Handling</a>
+              <p className="mk-docs-nav-title">Getting Started</p>
+              <a href="#intro">Introduction</a>
+              <a href="#auth">Authentication</a>
+              <a href="#errors">Error Handling</a>
             </div>
 
             <div className="mt-6">
-              <p className="text-white font-semibold mb-2">Core APIs</p>
-              <a href="#virtual" className="block hover:text-white">Virtual Accounts</a>
-              <a href="#payments" className="block hover:text-white">Payments</a>
-              <a href="#payouts" className="block hover:text-white">Payouts</a>
+              <p className="mk-docs-nav-title">Core APIs</p>
+              <a href="#virtual">Virtual Accounts</a>
+              <a href="#payments">Payments</a>
+              <a href="#payouts">Payouts</a>
             </div>
 
             <div className="mt-6">
-              <p className="text-white font-semibold mb-2">Advanced</p>
-              <a href="#webhooks" className="block hover:text-white">Webhooks</a>
-              <a href="#rate" className="block hover:text-white">Rate Limits</a>
+              <p className="mk-docs-nav-title">Advanced</p>
+              <a href="#webhooks">Webhooks</a>
+              <a href="#rate">Rate Limits</a>
             </div>
 
           </nav>
         </aside>
 
         {/* CONTENT */}
-        <div className="flex-1 p-6 md:p-12 max-w-5xl mx-auto space-y-20">
+        <div className="space-y-16">
 
           {/* INTRO */}
           <section id="intro">
-            <h1 className="text-4xl font-bold mb-4">
+            <h1 className="mk-title-lg mb-3">
               Ayaweisoft API Documentation
             </h1>
 
-            <p className="text-white/60 text-lg leading-relaxed">
+            <p className="mk-sub" style={{ marginTop: 0 }}>
               Ayaweisoft Pay is a developer-first financial infrastructure API
               enabling payments, virtual accounts, and payout systems across Africa.
             </p>
 
-            <div className="mt-6 bg-[#111827] border border-white/10 p-4 rounded-xl text-sm text-white/60">
+            <div className="mk-card mt-6 text-sm" style={{ color: "rgba(226,225,239,0.64)" }}>
               Base URL:{" "}
               <span className="text-green-400">
                 https://api.ayaweisoft.com/v1
@@ -108,22 +110,22 @@ echo $response->getBody();`,
 
           {/* AUTH */}
           <section id="auth">
-            <h2 className="text-2xl font-semibold mb-4">Authentication</h2>
+            <h2 className="mk-title-lg mb-4">Authentication</h2>
 
-            <p className="text-white/60 mb-4">
+            <p className="mk-sub" style={{ marginTop: 0 }}>
               All API requests require a secret key passed in the Authorization header.
             </p>
 
-            <div className="bg-black p-4 rounded-lg text-green-400 font-mono text-sm">
+            <div className="mk-code mk-code--green">
               Authorization: Bearer YOUR_SECRET_KEY
             </div>
           </section>
 
           {/* ERROR HANDLING */}
           <section id="errors">
-            <h2 className="text-2xl font-semibold mb-4">Error Handling</h2>
+            <h2 className="mk-title-lg mb-4">Error Handling</h2>
 
-            <div className="bg-[#111827] p-4 rounded-xl text-sm space-y-2">
+            <div className="mk-card text-sm space-y-2">
               <p><span className="text-red-400">400</span> - Bad Request</p>
               <p><span className="text-red-400">401</span> - Unauthorized</p>
               <p><span className="text-red-400">404</span> - Not Found</p>
@@ -133,11 +135,11 @@ echo $response->getBody();`,
 
           {/* VIRTUAL ACCOUNTS */}
           <section id="virtual">
-            <h2 className="text-2xl font-semibold mb-4">
+            <h2 className="mk-title-lg mb-4">
               Virtual Accounts API
             </h2>
 
-            <p className="text-white/60 mb-6">
+            <p className="mk-sub" style={{ marginTop: 0 }}>
               Create dedicated virtual accounts for customers to receive payments
               with automatic reconciliation.
             </p>
@@ -148,7 +150,7 @@ echo $response->getBody();`,
             </div>
 
             {/* CODE TABS */}
-            <div className="bg-[#111827] border border-white/10 rounded-xl overflow-hidden">
+            <div className="mk-card p-0 overflow-hidden">
 
               <div className="flex border-b border-white/10">
                 {TABS.map((tab) => (
@@ -166,7 +168,7 @@ echo $response->getBody();`,
                 ))}
               </div>
 
-              <pre className="p-5 text-green-300 text-sm overflow-x-auto">
+              <pre className="mk-code mk-code--green rounded-none border-0">
                 <code>{codeSamples[activeTab]}</code>
               </pre>
 
@@ -175,25 +177,25 @@ echo $response->getBody();`,
 
           {/* PAYMENTS */}
           <section id="payments">
-            <h2 className="text-2xl font-semibold mb-4">Payments API</h2>
-            <p className="text-white/60">
+            <h2 className="mk-title-lg mb-4">Payments API</h2>
+            <p className="mk-sub" style={{ marginTop: 0 }}>
               Accept bank transfers, cards, and wallet payments with real-time confirmation.
             </p>
           </section>
 
           {/* PAYOUTS */}
           <section id="payouts">
-            <h2 className="text-2xl font-semibold mb-4">Payouts API</h2>
-            <p className="text-white/60">
+            <h2 className="mk-title-lg mb-4">Payouts API</h2>
+            <p className="mk-sub" style={{ marginTop: 0 }}>
               Send instant or bulk payouts with fraud checks and reconciliation tracking.
             </p>
           </section>
 
           {/* WEBHOOKS */}
           <section id="webhooks">
-            <h2 className="text-2xl font-semibold mb-4">Webhooks</h2>
+            <h2 className="mk-title-lg mb-4">Webhooks</h2>
 
-            <div className="bg-black p-4 rounded-lg text-blue-400 font-mono text-sm">
+            <div className="mk-code mk-code--blue">
 {`{
   "event": "payment.success",
   "data": {
@@ -207,16 +209,19 @@ echo $response->getBody();`,
 
           {/* RATE LIMITS */}
           <section id="rate">
-            <h2 className="text-2xl font-semibold mb-4">Rate Limits</h2>
+            <h2 className="mk-title-lg mb-4">Rate Limits</h2>
 
-            <div className="bg-[#111827] p-4 rounded-xl text-sm">
+            <div className="mk-card text-sm">
               <p>• 100 requests/min (standard)</p>
               <p>• 1000 requests/min (enterprise)</p>
             </div>
           </section>
 
         </div>
+        </div>
       </div>
+
+      <AppFooter />
 
 
     </main>

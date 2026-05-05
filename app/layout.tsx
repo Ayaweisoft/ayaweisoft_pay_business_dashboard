@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Sans, DM_Serif_Display } from "next/font/google";
 import "./globals.css";
-import { Footer } from "../components/Footer";
 
 // ─── Fonts ────────────────────────────────────────────────────────────────────
 // DM Sans: clean, modern, highly legible — perfect for fintech UI labels & body
@@ -61,7 +60,6 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-bg text-white selection:bg-primary/30 selection:text-white">
         <div className="flex flex-col min-h-screen">
           {children}
-          <Footer />
         </div>
       </body>
     </html>

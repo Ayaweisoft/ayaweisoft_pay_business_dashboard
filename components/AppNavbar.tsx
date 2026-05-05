@@ -2,21 +2,50 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 
-export default function Navbar() {
+const NAV_LINKS = [
+  { href: "/developers", label: "Developers" },
+  { href: "/pricing", label: "Pricing" },
+  { href: "/company", label: "Company" },
+  { href: "/docs", label: "Docs" },
+] as const;
+
+export default function AppNavbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth > 900) setMobileOpen(false);
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
   return (
-    <motion.header
-      initial={{ y: -40, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      className="flex justify-between items-center px-4 md:px-12 py-4 border-b border-white/5 bg-[#0B1220]/80 backdrop-blur-xl sticky top-0 z-50"
-    >
-      <Link href="/" className="flex items-center gap-3 group">
-        <span className="rounded-xl border-2 border-white/10 bg-white/5 p-1 flex items-center justify-center transition group-hover:border-primary" style={{width: 40, height: 40}}>
+    <header className="mk-nav">
+      <Link href="/" className="mk-nav__brand">
+        <span className="mk-nav__logo-wrap">
           <Image
             src="/asp_logo.png"
             alt="Ayaweisoft Pay Logo"
@@ -26,27 +55,37 @@ export default function Navbar() {
             priority
           />
         </span>
-        <span className="text-white font-bold text-lg tracking-tight">Ayaweisoft Pay</span>
+        <span className="mk-nav__brand-name">Ayaweisoft Pay</span>
       </Link>
 
       {/* Desktop Nav */}
-      <nav className="hidden md:flex gap-6 text-sm text-white/60">
-        <Link href="/developers">Developers</Link>
-        <Link href="/pricing">Pricing</Link>
-        <Link href="/company">Company</Link>
+      <nav className="mk-nav__links" aria-label="Primary navigation">
+        {NAV_LINKS.map((item) => {
+          const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`mk-nav__link ${active ? "mk-nav__link--active" : ""}`}
+              aria-current={active ? "page" : undefined}
+            >
+              {item.label}
+            </Link>
+          );
+        })}
       </nav>
 
       {/* Desktop Actions */}
-      <div className="hidden md:flex gap-3 items-center">
+      <div className="mk-nav__actions">
         <Link
           href="/login"
-          className="px-4 py-2 rounded-lg border border-white/10 bg-white/5 text-white/80 hover:text-white hover:bg-primary/80 hover:border-primary transition font-semibold shadow-sm"
+          className="mk-nav__btn mk-nav__btn--ghost"
         >
           Sign in
         </Link>
         <Link
           href="/register"
-          className="px-4 py-2 rounded-lg bg-linear-to-r from-blue-500 to-indigo-500 text-white font-semibold shadow-md hover:opacity-90 transition"
+          className="mk-nav__btn mk-nav__btn--primary"
         >
           Get Started
         </Link>
@@ -54,45 +93,52 @@ export default function Navbar() {
 
       {/* Mobile Hamburger */}
       <button
-        className="md:hidden flex items-center justify-center p-2 rounded-lg border border-white/10 bg-white/5 text-white/80 hover:text-white hover:bg-primary/80 hover:border-primary transition"
+        className="mk-nav__toggle"
         onClick={() => setMobileOpen((v) => !v)}
         aria-label={mobileOpen ? "Close menu" : "Open menu"}
+        aria-expanded={mobileOpen}
       >
         {mobileOpen ? <X size={22} /> : <Menu size={22} />}
       </button>
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-50 bg-[#0B1220]/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8 md:hidden animate-fade-in">
+        <div className="mk-nav__mobile" role="dialog" aria-modal="true">
           <button
-            className="absolute top-6 right-6 p-2 rounded-lg border border-white/10 bg-white/5 text-white/80 hover:text-white hover:bg-primary/80 hover:border-primary transition"
+            className="mk-nav__mobile-close"
             onClick={() => setMobileOpen(false)}
             aria-label="Close menu"
           >
             <X size={24} />
           </button>
-          <nav className="flex flex-col gap-6 text-lg text-white/80">
-            <Link href="/developers" onClick={() => setMobileOpen(false)}>
-              Developers
-            </Link>
-            <Link href="/pricing" onClick={() => setMobileOpen(false)}>
-              Pricing
-            </Link>
-            <Link href="/company" onClick={() => setMobileOpen(false)}>
-              Company
-            </Link>
+
+          <nav className="mk-nav__mobile-links" aria-label="Mobile navigation">
+            {NAV_LINKS.map((item) => {
+              const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMobileOpen(false)}
+                  className={`mk-nav__mobile-link ${active ? "mk-nav__mobile-link--active" : ""}`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </nav>
-          <div className="flex flex-col gap-4 w-full px-8">
+
+          <div className="mk-nav__mobile-actions">
             <Link
               href="/login"
-              className="w-full text-center px-4 py-3 rounded-lg border border-white/10 bg-white/10 text-white/90 hover:text-white hover:bg-primary/80 hover:border-primary transition font-semibold shadow-sm"
+              className="mk-nav__btn mk-nav__btn--ghost"
               onClick={() => setMobileOpen(false)}
             >
               Sign in
             </Link>
             <Link
               href="/register"
-              className="w-full text-center px-4 py-3 rounded-lg bg-linear-to-r from-blue-500 to-indigo-500 text-white font-semibold shadow-md hover:opacity-90 transition"
+              className="mk-nav__btn mk-nav__btn--primary"
               onClick={() => setMobileOpen(false)}
             >
               Get Started
@@ -100,6 +146,6 @@ export default function Navbar() {
           </div>
         </div>
       )}
-    </motion.header>
+    </header>
   );
 }

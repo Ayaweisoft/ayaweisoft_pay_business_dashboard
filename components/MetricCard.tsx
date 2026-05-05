@@ -1,30 +1,63 @@
 import { ReactNode } from "react";
+import { LucideTrendingUp, LucideTrendingDown } from "lucide-react";
 
 interface MetricCardProps {
   title: string;
   value: string | number;
   icon?: ReactNode;
-  change?: string;
-  variant?: "default" | "success" | "warning" | "error";
+  iconVariant?: "blue" | "teal" | "purple" | "green" | "orange" | "neutral";
+  change?: string | number;
+  changeSub?: string;
+  variant?: "default" | "success" | "warning" | "error" | "info";
 }
 
-export function MetricCard({ title, value, icon, change, variant = "default" }: MetricCardProps) {
-  const colorMap = {
-    default: "text-primary",
-    success: "text-success",
-    warning: "text-warning",
-    error: "text-error",
-  };
+const variantColorMap: Record<string, string> = {
+  default: "var(--foreground)",
+  success: "var(--success)",
+  warning: "var(--warning)",
+  error:   "var(--error)",
+  info:    "var(--primary)",
+};
+
+export function MetricCard({
+  title,
+  value,
+  icon,
+  iconVariant = "blue",
+  change,
+  changeSub = "vs last month",
+  variant = "default",
+}: MetricCardProps) {
+  const changeNum = typeof change === "number" ? change : parseFloat(String(change ?? "0"));
+  const hasChange = change !== undefined && change !== "" && !isNaN(changeNum);
+  const up = changeNum > 0;
+  const flat = changeNum === 0;
+
   return (
-    <div className="glass-card p-6 flex flex-col gap-2 min-w-50">
-      <div className="flex items-center gap-2">
-        {icon && <span className="text-xl">{icon}</span>}
-        <span className="text-sm text-white/70 font-medium">{title}</span>
+    <div className="metric-card">
+      <div className="metric-card__top">
+        <span className="metric-card__label">{title}</span>
+        {icon && (
+          <span className={`icon-chip icon-chip--${iconVariant}`}>{icon}</span>
+        )}
       </div>
-      <div className="text-2xl font-bold text-white">{value}</div>
-      {change && (
-        <div className={`text-xs font-semibold ${colorMap[variant]}`}>{change}</div>
-      )}
+      <div>
+        <div className="metric-card__value" style={{ color: variantColorMap[variant] }}>
+          {value}
+        </div>
+        {hasChange && (
+          <div className="metric-card__footer" style={{ marginTop: 8 }}>
+            <span className={`trend-badge ${flat ? "trend-badge--flat" : up ? "trend-badge--up" : "trend-badge--down"}`}>
+              {!flat && (up
+                ? <LucideTrendingUp  size={10} strokeWidth={2.5} />
+                : <LucideTrendingDown size={10} strokeWidth={2.5} />
+              )}
+              {flat ? "No change" : `${up ? "+" : ""}${changeNum}%`}
+            </span>
+            <span className="metric-card__sub">{changeSub}</span>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

@@ -1,38 +1,80 @@
-// components/Footer.tsx
-export default function Footer() {
+import Link from "next/link";
+
+const LINKS = {
+  Product: [
+    { label: "Developers", href: "/developers" },
+    { label: "Pricing",    href: "/pricing"    },
+    { label: "Docs",       href: "/docs"       },
+  ],
+  Company: [
+    { label: "About",    href: "/company"  },
+    { label: "Contact",  href: "/contact"  },
+    { label: "API Status", href: "/system-health" },
+  ],
+  Resources: [
+    { label: "Notifications", href: "/notifications" },
+    { label: "System Health", href: "/system-health" },
+  ],
+};
+
+export default function AppFooter() {
+  const year = new Date().getFullYear();
+
   return (
-    <footer className="border-t border-white/5 px-6 md:px-12 py-10 text-sm text-white/40 bg-[#0B1220]">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between gap-6">
-        
-        <div>
-          <h4 className="text-white font-semibold mb-2">Ayaweisoft Pay</h4>
-          <p className="max-w-sm">
-            Financial infrastructure for modern African fintech products.
+    <footer className="mk-footer">
+      <div className="mk-shell mk-footer__inner">
+
+        {/* Top row */}
+        <div className="mk-footer__top">
+          {/* Brand */}
+          <div className="mk-footer__brand">
+            <div className="mk-footer__brand-head">
+              <span className="mk-footer__brand-icon">A</span>
+              <span className="mk-footer__brand-name">
+                Ayaweisoft <span className="mk-footer__brand-pay">Pay</span>
+              </span>
+            </div>
+            <p className="mk-footer__brand-copy">
+              Financial infrastructure for modern African fintech products.
+            </p>
+          </div>
+
+          {/* Link columns */}
+          <div className="mk-footer__links-wrap">
+            {Object.entries(LINKS).map(([section, links]) => (
+              <div key={section}>
+                <p className="mk-footer__links-title">{section}</p>
+                <ul className="mk-footer__links-list">
+                  {links.map(link => (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        className="mk-footer__link"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Divider */}
+        <div className="mk-footer__divider" />
+
+        {/* Bottom row */}
+        <div className="mk-footer__bottom">
+          <p className="mk-footer__meta">
+            © {year} Ayaweisoft Pay. All rights reserved.
+          </p>
+          <p className="mk-footer__meta">
+            Banking services provided by Mbawula Microfinance Bank.
           </p>
         </div>
 
-        <div className="flex gap-10">
-          <div>
-            <p className="text-white mb-2">Product</p>
-            <ul className="space-y-1">
-              <li><a href="/developers">Developers</a></li>
-              <li><a href="/pricing">Pricing</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <p className="text-white mb-2">Company</p>
-            <ul className="space-y-1">
-              <li><a href="/company">About</a></li>
-              <li><a href="/security">Security</a></li>
-            </ul>
-          </div>
-        </div>
       </div>
-
-      <p className="text-center mt-8 text-xs">
-        Ayaweisoft Pay is a technology platform. Banking services provided by Mbawula Microfinance Bank.
-      </p>
     </footer>
   );
 }

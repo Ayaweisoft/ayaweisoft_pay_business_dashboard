@@ -2,9 +2,23 @@
 
 import { useEffect, useState } from "react";
 
+type ApiMethod = "GET" | "POST" | "PUT" | "DELETE";
+
+interface EndpointOption {
+  value: string;
+  label: string;
+}
+
+const ENDPOINTS: EndpointOption[] = [
+  { value: "/v1/virtual-accounts", label: "/v1/virtual-accounts" },
+  { value: "/v1/payouts", label: "/v1/payouts" },
+  { value: "/v1/payments", label: "/v1/payments" },
+  { value: "/v1/wallets", label: "/v1/wallets" },
+];
+
 export default function ApiTester() {
   const [endpoint, setEndpoint] = useState("/v1/virtual-accounts");
-  const [method, setMethod] = useState("POST");
+  const [method, setMethod] = useState<ApiMethod>("POST");
   const [payload, setPayload] = useState(`{
   "name": "John Doe",
   "email": "john@email.com"
@@ -19,19 +33,40 @@ export default function ApiTester() {
 
   // Load API key
   useEffect(() => {
-    const saved = localStorage.getItem("apiKey");
-    if (saved) setApiKey(saved);
+    try {
+      const saved = localStorage.getItem("apiKey");
+      if (saved) setApiKey(saved);
+    } catch {
+      // Ignore storage access issues in restricted environments.
+    }
   }, []);
 
   useEffect(() => {
-    if (apiKey) localStorage.setItem("apiKey", apiKey);
+    if (!apiKey) return;
+
+    try {
+      localStorage.setItem("apiKey", apiKey);
+    } catch {
+      // Ignore storage access issues in restricted environments.
+    }
   }, [apiKey]);
 
-  const formatJson = (data: any) => {
+  const formatJson = (data: unknown) => {
     try {
       return JSON.stringify(data, null, 2);
     } catch {
       return String(data);
+    }
+  };
+
+  const buildRequestBody = () => {
+    if (method === "GET") return undefined;
+
+    try {
+      const parsed = JSON.parse(payload);
+      return JSON.stringify(parsed);
+    } catch {
+      throw new Error("Payload must be valid JSON before sending.");
     }
   };
 
@@ -43,18 +78,20 @@ export default function ApiTester() {
     const url = `${baseUrl}${endpoint}`;
 
     try {
+      const body = buildRequestBody();
+
       const res = await fetch(url, {
         method,
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${apiKey}`,
+          ...(apiKey.trim() ? { Authorization: `Bearer ${apiKey.trim()}` } : {}),
         },
-        body: method !== "GET" ? payload : undefined,
+        body,
       });
 
       setStatus(`${res.status}`);
 
-      let data;
+      let data: unknown;
       try {
         data = await res.json();
       } catch {
@@ -66,38 +103,48 @@ export default function ApiTester() {
       setResponse(formatted);
 
       setHistory(prev => [`${method} ${endpoint}`, ...prev.slice(0, 4)]);
-    } catch (err) {
+    } catch (error) {
       setStatus("ERROR");
-      setResponse("Unable to reach API. Check network or endpoint.");
+      if (error instanceof Error) {
+        setResponse(error.message);
+      } else {
+        setResponse("Unable to reach API. Check network, endpoint, and CORS policy.");
+      }
     } finally {
       setLoading(false);
     }
   };
 
-  const copyResponse = () => {
-    navigator.clipboard.writeText(response);
+  const copyResponse = async () => {
+    if (!response) return;
+
+    try {
+      await navigator.clipboard.writeText(response);
+    } catch {
+      setStatus("ERROR");
+      setResponse("Could not copy response to clipboard in this browser context.");
+    }
   };
 
   return (
-    <div className="bg-[#0F172A] border border-white/10 rounded-2xl overflow-hidden">
+    <div className="api-tester">
 
       {/* HEADER */}
-      <div className="p-5 border-b border-white/10 flex justify-between items-center">
+      <div className="api-tester__header">
         <div>
           <h3 className="text-lg font-semibold">API Tester</h3>
-          <p className="text-xs text-white/40">
+          <p className="api-tester__base-url">
             Base URL: {baseUrl}
           </p>
         </div>
 
         {status && (
-          <span
-            className={`px-3 py-1 text-xs rounded-full font-semibold ${
+          <span className={`api-tester__status ${
               status.startsWith("2")
-                ? "bg-green-500/10 text-green-400"
+                ? "api-tester__status--ok"
                 : status === "ERROR"
-                ? "bg-red-500/10 text-red-400"
-                : "bg-yellow-500/10 text-yellow-300"
+                ? "api-tester__status--err"
+                : "api-tester__status--warn"
             }`}
           >
             {status}
@@ -105,17 +152,17 @@ export default function ApiTester() {
         )}
       </div>
 
-      <div className="grid md:grid-cols-2">
+      <div className="api-tester__grid">
 
         {/* LEFT - REQUEST */}
-        <div className="p-5 space-y-4 border-r border-white/10">
+        <div className="api-tester__request">
 
           {/* METHOD + ENDPOINT */}
-          <div className="flex gap-2">
+          <div className="api-tester__row">
             <select
               value={method}
-              onChange={e => setMethod(e.target.value)}
-              className="bg-black px-3 py-2 rounded text-sm"
+              onChange={e => setMethod(e.target.value as ApiMethod)}
+              className="api-tester__select"
             >
               <option>POST</option>
               <option>GET</option>
@@ -126,12 +173,11 @@ export default function ApiTester() {
             <select
               value={endpoint}
               onChange={e => setEndpoint(e.target.value)}
-              className="bg-black px-3 py-2 rounded text-sm w-full"
+              className="api-tester__select api-tester__select--grow"
             >
-              <option value="/v1/virtual-accounts">/v1/virtual-accounts</option>
-              <option value="/v1/payouts">/v1/payouts</option>
-              <option value="/v1/payments">/v1/payments</option>
-              <option value="/v1/wallets">/v1/wallets</option>
+              {ENDPOINTS.map((item) => (
+                <option key={item.value} value={item.value}>{item.label}</option>
+              ))}
             </select>
           </div>
 
@@ -140,7 +186,7 @@ export default function ApiTester() {
             placeholder="Enter API Key"
             value={apiKey}
             onChange={e => setApiKey(e.target.value)}
-            className="w-full bg-black px-3 py-2 rounded text-sm"
+            className="api-tester__input"
           />
 
           {/* BODY */}
@@ -148,7 +194,7 @@ export default function ApiTester() {
             <textarea
               value={payload}
               onChange={e => setPayload(e.target.value)}
-              className="w-full bg-black p-3 rounded text-sm font-mono h-40"
+              className="api-tester__textarea"
             />
           )}
 
@@ -156,15 +202,15 @@ export default function ApiTester() {
           <button
             onClick={sendRequest}
             disabled={loading}
-            className="w-full px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 rounded font-semibold"
+            className="api-tester__send-btn"
           >
             {loading ? "Sending Request..." : "Send Request"}
           </button>
 
           {/* HISTORY */}
           {history.length > 0 && (
-            <div className="text-xs text-white/40 space-y-1">
-              <p className="font-semibold text-white/60">Recent Requests</p>
+            <div className="api-tester__history">
+              <p className="api-tester__history-title">Recent Requests</p>
               {history.map((h, i) => (
                 <p key={i}>• {h}</p>
               ))}
@@ -173,22 +219,22 @@ export default function ApiTester() {
         </div>
 
         {/* RIGHT - RESPONSE */}
-        <div className="p-5 space-y-3">
+        <div className="api-tester__response-wrap">
 
-          <div className="flex justify-between items-center">
-            <p className="text-sm text-white/60">Response</p>
+          <div className="api-tester__response-head">
+            <p className="api-tester__response-title">Response</p>
 
             {response && (
               <button
                 onClick={copyResponse}
-                className="text-xs px-2 py-1 bg-white/5 rounded"
+                className="api-tester__copy-btn"
               >
                 Copy
               </button>
             )}
           </div>
 
-          <pre className="bg-black p-4 rounded text-green-400 text-sm overflow-auto h-96">
+          <pre className="api-tester__response-box">
             {response || "No response yet..."}
           </pre>
 

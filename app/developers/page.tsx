@@ -1,58 +1,52 @@
 // app/developers/page.tsx
-"use client";
-
-import Navbar from "@/components/AppNavbar";
-
-import { motion } from "framer-motion";
+import AppNavbar from "@/components/AppNavbar";
+import AppFooter from "@/components/AppFooter";
 import Link from "next/link";
 
 export default function Developers() {
   return (
-    <main className="bg-[#0B1220] text-white">
+    <main className="mk-root">
 
-      <Navbar />
+      <AppNavbar />
 
       {/* HERO */}
-      <section className="text-center py-24 px-6">
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-5xl md:text-6xl font-bold"
-        >
+      <section className="mk-hero mk-shell">
+        <h1 className="mk-title-xl">
           Build with Ayaweisoft APIs
-        </motion.h1>
+        </h1>
 
-        <p className="text-white/50 mt-6 max-w-xl mx-auto">
+        <p className="mk-sub mk-sub--center">
           Integrate payments, virtual accounts, wallets, and payouts with a single API.
         </p>
 
-        <div className="mt-8 flex justify-center gap-4">
-          <Link href="/register" className="px-8 py-4 bg-linear-to-r from-blue-500 to-indigo-500 rounded-xl text-lg font-semibold">
+        <div className="mk-actions">
+          <Link href="/register" className="mk-btn mk-btn--primary">
             Get API Keys
           </Link>
-          <Link href="/docs" className="px-6 py-3 bg-white/5 rounded-xl">
+          <Link href="/docs" className="mk-btn mk-btn--ghost">
             View Docs
           </Link>
         </div>
       </section>
 
       {/* QUICK START */}
-      <section className="px-6 py-20 max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+      <section className="mk-section mk-section--compact">
+        <div className="mk-shell mk-grid-2 items-center" style={{ gap: 18 }}>
 
         <div>
-          <h2 className="text-3xl font-bold mb-4">Quickstart</h2>
-          <p className="text-white/50 mb-6">
+          <h2 className="mk-title-lg mb-4">Quickstart</h2>
+          <p className="mk-sub">
             Start accepting payments and generating virtual accounts in minutes.
           </p>
 
-          <ul className="space-y-3 text-sm text-white/60">
+          <ul className="mk-list-check">
             <li>✔ Create account</li>
             <li>✔ Get API keys</li>
             <li>✔ Make your first API call</li>
           </ul>
         </div>
 
-        <div className="bg-black p-6 rounded-xl font-mono text-green-400 text-sm overflow-x-auto">
+        <div className="mk-code mk-code--green">
 {`POST /v1/virtual-accounts
 
 {
@@ -63,13 +57,15 @@ export default function Developers() {
 → Returns account instantly`}
         </div>
 
+        </div>
       </section>
 
       {/* CORE APIs */}
-      <section className="px-6 py-20 max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-12">Core APIs</h2>
+      <section className="mk-section">
+        <div className="mk-shell">
+        <h2 className="mk-title-lg text-center mb-10">Core APIs</h2>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="mk-grid-3">
 
           {[
             "Payments API",
@@ -79,41 +75,41 @@ export default function Developers() {
             "Webhook Events",
             "KYC & Verification"
           ].map((api) => (
-            <motion.div
-              whileHover={{ scale: 1.04 }}
-              key={api}
-              className="p-6 bg-[#111827] border border-[#1F2937] rounded-xl"
-            >
-              <h3 className="font-semibold text-lg">{api}</h3>
-              <p className="text-white/50 text-sm mt-2">
+            <div key={api} className="mk-card">
+              <h3 className="mk-card-title">{api}</h3>
+              <p className="mk-card-copy">
                 Fully documented and scalable.
               </p>
-            </motion.div>
+            </div>
           ))}
 
+        </div>
         </div>
       </section>
 
       {/* SDKS */}
-      <section className="bg-[#111827] py-20 px-6 text-center">
-        <h2 className="text-3xl font-bold mb-6">SDKs & Libraries</h2>
+      <section className="mk-section mk-section--muted text-center">
+        <div className="mk-shell">
+        <h2 className="mk-title-lg mb-4">SDKs & Libraries</h2>
 
-        <p className="text-white/50 mb-10">
+        <p className="mk-sub mk-sub--center">
           Integrate faster using official SDKs.
         </p>
 
-        <div className="flex justify-center gap-6 text-sm text-white/60">
-          <span>Node.js</span>
-          <span>PHP</span>
-          <span>Python</span>
-          <span>Java</span>
+        <div className="mk-actions" style={{ marginTop: 18 }}>
+          <span className="mk-pill">Node.js</span>
+          <span className="mk-pill">PHP</span>
+          <span className="mk-pill">Python</span>
+          <span className="mk-pill">Java</span>
+        </div>
         </div>
       </section>
 
       {/* WEBHOOKS */}
-      <section className="px-6 py-20 max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+      <section className="mk-section">
+        <div className="mk-shell mk-grid-2 items-center" style={{ gap: 18 }}>
 
-        <div className="bg-black p-6 rounded-xl font-mono text-blue-400 text-sm">
+        <div className="mk-code mk-code--blue">
 {`POST /webhook
 
 {
@@ -123,27 +119,32 @@ export default function Developers() {
         </div>
 
         <div>
-          <h2 className="text-3xl font-bold mb-4">Real-time Webhooks</h2>
-          <p className="text-white/50">
+          <h2 className="mk-title-lg mb-4">Real-time Webhooks</h2>
+          <p className="mk-sub">
             Get instant notifications for payments, transfers, and events.
           </p>
         </div>
 
+        </div>
       </section>
 
       {/* FINAL CTA */}
-      <section className="text-center py-24 px-6">
-        <h2 className="text-4xl font-bold mb-6">
+      <section className="mk-section text-center">
+        <div className="mk-shell">
+        <h2 className="mk-title-lg mb-4">
           Start building today
         </h2>
 
         <Link
           href="/register"
-          className="px-8 py-4 bg-linear-to-r from-blue-500 to-indigo-500 rounded-xl text-lg font-semibold"
+          className="mk-btn mk-btn--primary"
         >
           Create Free Account
         </Link>
+        </div>
       </section>
+
+      <AppFooter />
 
 
     </main>

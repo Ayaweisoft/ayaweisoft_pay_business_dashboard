@@ -1,43 +1,36 @@
-"use client";
-
 import AppNavbar from "@/components/AppNavbar";
-
-import { motion } from "framer-motion";
+import AppFooter from "@/components/AppFooter";
 import Link from "next/link";
 
 export default function CompanyPage() {
   return (
-    <main className="bg-[#0B1220] text-white min-h-screen">
+    <main className="mk-root">
 
       <AppNavbar />
 
       {/* HERO */}
-      <section className="text-center py-24 px-6 max-w-5xl mx-auto">
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-5xl md:text-6xl font-bold"
-        >
+      <section className="mk-hero mk-shell" style={{ maxWidth: 1060 }}>
+        <h1 className="mk-title-xl">
           Building the financial infrastructure powering modern Africa
-        </motion.h1>
+        </h1>
 
-        <p className="text-white/60 mt-6 text-lg max-w-2xl mx-auto">
+        <p className="mk-sub mk-sub--center" style={{ maxWidth: 760 }}>
           Ayaweisoft is a fintech infrastructure company enabling businesses to
           move money, create financial products, and scale with secure APIs,
           banking partnerships, and intelligent automation systems.
         </p>
 
-        <div className="mt-10 flex justify-center gap-4 flex-wrap">
+        <div className="mk-actions">
           <Link
             href="/developers"
-            className="px-6 py-3 bg-blue-600 rounded-xl font-semibold"
+            className="mk-btn mk-btn--primary"
           >
             Explore APIs
           </Link>
 
           <Link
             href="/contact"
-            className="px-6 py-3 bg-white/5 border border-white/10 rounded-xl"
+            className="mk-btn mk-btn--ghost"
           >
             Talk to Us
           </Link>
@@ -45,38 +38,41 @@ export default function CompanyPage() {
       </section>
 
       {/* MISSION / VISION */}
-      <section className="grid md:grid-cols-3 gap-6 px-6 max-w-6xl mx-auto py-16">
+      <section className="mk-section mk-section--compact">
+        <div className="mk-shell mk-grid-3">
 
-        <div className="p-6 bg-[#111827] border border-white/10 rounded-xl">
-          <h3 className="text-lg font-semibold mb-2">Our Mission</h3>
-          <p className="text-white/60 text-sm">
+        <div className="mk-card">
+          <h3 className="mk-card-title">Our Mission</h3>
+          <p className="mk-card-copy">
             To simplify financial infrastructure for African businesses by
             providing secure, scalable, and developer-friendly APIs.
           </p>
         </div>
 
-        <div className="p-6 bg-[#111827] border border-white/10 rounded-xl">
-          <h3 className="text-lg font-semibold mb-2">Our Vision</h3>
-          <p className="text-white/60 text-sm">
+        <div className="mk-card">
+          <h3 className="mk-card-title">Our Vision</h3>
+          <p className="mk-card-copy">
             To become the backbone of digital financial systems across Africa,
             powering payments, banking, and embedded finance.
           </p>
         </div>
 
-        <div className="p-6 bg-[#111827] border border-white/10 rounded-xl">
-          <h3 className="text-lg font-semibold mb-2">Our Approach</h3>
-          <p className="text-white/60 text-sm">
+        <div className="mk-card">
+          <h3 className="mk-card-title">Our Approach</h3>
+          <p className="mk-card-copy">
             API-first, security-driven, and built for scale from startups to
             enterprise financial systems.
           </p>
         </div>
 
+        </div>
       </section>
 
       {/* STORY / TIMELINE */}
-      <section className="px-6 max-w-5xl mx-auto py-20">
+      <section className="mk-section">
+        <div className="mk-shell" style={{ maxWidth: 980 }}>
 
-        <h2 className="text-3xl font-bold mb-10 text-center">Our Journey</h2>
+        <h2 className="mk-title-lg mb-10 text-center">Our Journey</h2>
 
         <div className="space-y-8">
 
@@ -104,7 +100,7 @@ export default function CompanyPage() {
           ].map((item, i) => (
             <div
               key={i}
-              className="flex gap-6 p-6 bg-[#111827] border border-white/10 rounded-xl"
+              className="mk-card flex gap-6"
             >
               <div className="text-blue-400 font-bold w-20">
                 {item.year}
@@ -112,23 +108,25 @@ export default function CompanyPage() {
 
               <div>
                 <h4 className="font-semibold">{item.title}</h4>
-                <p className="text-white/60 text-sm mt-1">{item.desc}</p>
+                <p className="mk-card-copy mt-1">{item.desc}</p>
               </div>
             </div>
           ))}
 
         </div>
+        </div>
 
       </section>
 
       {/* WHAT WE BUILD */}
-      <section className="px-6 max-w-6xl mx-auto py-20">
+      <section className="mk-section mk-section--compact">
+        <div className="mk-shell">
 
-        <h2 className="text-3xl font-bold mb-10 text-center">
+        <h2 className="mk-title-lg mb-10 text-center">
           What We Build
         </h2>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="mk-grid-3">
 
           {[
             "Payment Infrastructure APIs",
@@ -140,75 +138,84 @@ export default function CompanyPage() {
           ].map((item) => (
             <div
               key={item}
-              className="p-6 bg-[#111827] border border-white/10 rounded-xl"
+              className="mk-card"
             >
               <p className="font-semibold">{item}</p>
             </div>
           ))}
 
         </div>
+        </div>
 
       </section>
 
       {/* TRUST / COMPLIANCE */}
-      <section className="bg-[#0F172A] py-20 px-6 text-center">
+      <section className="mk-section mk-section--muted text-center">
+        <div className="mk-shell">
 
-        <h2 className="text-3xl font-bold mb-6">Security & Trust</h2>
+        <h2 className="mk-title-lg mb-4">Security & Trust</h2>
 
-        <p className="text-white/60 max-w-2xl mx-auto">
+        <p className="mk-sub mk-sub--center" style={{ maxWidth: 740 }}>
           We operate with enterprise-grade security standards, encrypted
           transactions, fraud detection systems, and regulated banking partners
           to ensure reliability at scale.
         </p>
 
-        <div className="flex flex-wrap justify-center gap-6 mt-10 text-sm text-white/60">
-          <span>🔐 End-to-end encryption</span>
-          <span>🛡 Fraud monitoring</span>
-          <span>⚡ 99.9% uptime</span>
-          <span>🏦 Licensed partners</span>
+        <div className="mk-actions" style={{ marginTop: 20 }}>
+          <span className="mk-pill">End-to-end encryption</span>
+          <span className="mk-pill">Fraud monitoring</span>
+          <span className="mk-pill">99.9% uptime</span>
+          <span className="mk-pill">Licensed partners</span>
+        </div>
         </div>
 
       </section>
 
       {/* LEADERSHIP */}
-      <section className="px-6 max-w-5xl mx-auto py-20 text-center">
+      <section className="mk-section mk-section--compact text-center">
+        <div className="mk-shell" style={{ maxWidth: 920 }}>
 
-        <h2 className="text-3xl font-bold mb-6">Leadership</h2>
+        <h2 className="mk-title-lg mb-4">Leadership</h2>
 
-        <p className="text-white/60 max-w-2xl mx-auto">
+        <p className="mk-sub mk-sub--center">
           Ayaweisoft is led by engineers and fintech architects building
           infrastructure for real-world financial systems across Africa.
         </p>
+        </div>
       </section>
 
       {/* CTA */}
-      <section className="text-center py-24 px-6">
+      <section className="mk-section text-center">
+        <div className="mk-shell">
 
-        <h2 className="text-4xl font-bold">
+        <h2 className="mk-title-lg">
           Let’s build the future of finance together
         </h2>
 
-        <p className="text-white/60 mt-4">
+        <p className="mk-sub mk-sub--center">
           Whether you're a startup, bank, or enterprise — we can power your system.
         </p>
 
-        <div className="mt-8 flex justify-center gap-4 flex-wrap">
+        <div className="mk-actions">
           <Link
             href="/developers"
-            className="px-6 py-3 bg-blue-600 rounded-xl"
+            className="mk-btn mk-btn--primary"
           >
             Start Building
           </Link>
 
           <Link
             href="/contact"
-            className="px-6 py-3 bg-white/5 border border-white/10 rounded-xl"
+            className="mk-btn mk-btn--ghost"
           >
             Contact Sales
           </Link>
         </div>
+        </div>
 
       </section>
+
+      <AppFooter />
 
 
 

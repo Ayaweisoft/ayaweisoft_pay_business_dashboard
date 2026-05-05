@@ -1,8 +1,10 @@
 "use client";
 
 import AppNavbar from "@/components/AppNavbar";
+import AppFooter from "@/components/AppFooter";
 
 import { useState } from "react";
+import Link from "next/link";
 
 export default function ContactPage() {
   const [form, setForm] = useState({
@@ -16,7 +18,7 @@ export default function ContactPage() {
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
@@ -31,34 +33,35 @@ export default function ContactPage() {
   };
 
   return (
-    <main className="bg-[#0B1220] text-white min-h-screen">
+    <main className="mk-root">
       <AppNavbar />
 
       {/* HERO */}
-      <section className="text-center py-20 px-6 max-w-4xl mx-auto">
-        <h1 className="text-5xl font-bold">
+      <section className="mk-hero mk-shell" style={{ maxWidth: 980 }}>
+        <h1 className="mk-title-xl">
           Let’s build something powerful together
         </h1>
 
-        <p className="text-white/60 mt-5 text-lg">
+        <p className="mk-sub mk-sub--center">
           Reach out to Ayaweisoft for API integration, enterprise partnerships,
           fintech infrastructure, or technical support.
         </p>
 
-        <div className="mt-6 text-sm text-white/40">
+        <div className="mk-inline-note">
           Response time: <span className="text-green-400">24–48 hours</span>
         </div>
       </section>
 
       {/* CONTACT SECTION */}
-      <section className="grid md:grid-cols-2 gap-10 px-6 max-w-6xl mx-auto pb-24">
+      <section className="mk-section mk-section--compact">
+        <div className="mk-shell mk-grid-2" style={{ gap: 18 }}>
 
         {/* LEFT INFO */}
         <div className="space-y-6">
 
-          <div className="p-6 bg-[#111827] border border-white/10 rounded-xl">
-            <h3 className="font-semibold">Sales & Partnerships</h3>
-            <p className="text-white/60 text-sm mt-2">
+          <div className="mk-card">
+            <h3 className="mk-card-title">Sales & Partnerships</h3>
+            <p className="mk-card-copy">
               Enterprise onboarding, banking integrations, and fintech partnerships.
             </p>
             <p className="text-blue-400 text-sm mt-3">
@@ -66,9 +69,9 @@ export default function ContactPage() {
             </p>
           </div>
 
-          <div className="p-6 bg-[#111827] border border-white/10 rounded-xl">
-            <h3 className="font-semibold">Developer Support</h3>
-            <p className="text-white/60 text-sm mt-2">
+          <div className="mk-card">
+            <h3 className="mk-card-title">Developer Support</h3>
+            <p className="mk-card-copy">
               API issues, integration help, and technical documentation support.
             </p>
             <p className="text-blue-400 text-sm mt-3">
@@ -76,9 +79,9 @@ export default function ContactPage() {
             </p>
           </div>
 
-          <div className="p-6 bg-[#111827] border border-white/10 rounded-xl">
-            <h3 className="font-semibold">Security & Compliance</h3>
-            <p className="text-white/60 text-sm mt-2">
+          <div className="mk-card">
+            <h3 className="mk-card-title">Security & Compliance</h3>
+            <p className="mk-card-copy">
               Report vulnerabilities or request compliance documentation.
             </p>
             <p className="text-blue-400 text-sm mt-3">
@@ -89,7 +92,7 @@ export default function ContactPage() {
         </div>
 
         {/* FORM */}
-        <div className="bg-[#111827] border border-white/10 rounded-xl p-6">
+        <div className="mk-card">
 
           <h2 className="text-xl font-semibold mb-4">Send us a message</h2>
 
@@ -104,27 +107,27 @@ export default function ContactPage() {
                 name="name"
                 placeholder="Full Name"
                 onChange={handleChange}
-                className="w-full bg-black p-3 rounded text-sm"
+                className="mk-input"
               />
 
               <input
                 name="email"
                 placeholder="Email Address"
                 onChange={handleChange}
-                className="w-full bg-black p-3 rounded text-sm"
+                className="mk-input"
               />
 
               <input
                 name="company"
                 placeholder="Company (optional)"
                 onChange={handleChange}
-                className="w-full bg-black p-3 rounded text-sm"
+                className="mk-input"
               />
 
               <select
                 name="type"
                 onChange={handleChange}
-                className="w-full bg-black p-3 rounded text-sm"
+                className="mk-select"
               >
                 <option value="general">General Inquiry</option>
                 <option value="sales">Sales / Enterprise</option>
@@ -138,13 +141,13 @@ export default function ContactPage() {
                 placeholder="Your message..."
                 onChange={handleChange}
                 rows={5}
-                className="w-full bg-black p-3 rounded text-sm"
+                className="mk-textarea"
               />
 
               <button
                 onClick={submit}
                 disabled={loading}
-                className="w-full py-3 bg-linear-to-r from-blue-500 to-indigo-500 rounded font-semibold"
+                className="mk-btn mk-btn--primary w-full"
               >
                 {loading ? "Sending..." : "Send Message"}
               </button>
@@ -157,35 +160,40 @@ export default function ContactPage() {
           )}
 
         </div>
+        </div>
 
       </section>
 
       {/* FOOTER CTA */}
-      <section className="text-center py-20 px-6 bg-[#0F172A]">
-        <h2 className="text-3xl font-bold">
+      <section className="mk-section mk-section--muted text-center">
+        <div className="mk-shell">
+        <h2 className="mk-title-lg">
           Need faster integration?
         </h2>
 
-        <p className="text-white/60 mt-3">
+        <p className="mk-sub mk-sub--center">
           Talk directly to our engineering team for API onboarding.
         </p>
 
-        <div className="mt-6 flex justify-center gap-4 flex-wrap">
-          <a
+        <div className="mk-actions">
+          <Link
             href="/developers"
-            className="px-6 py-3 bg-blue-600 rounded-xl"
+            className="mk-btn mk-btn--primary"
           >
             View Docs
-          </a>
+          </Link>
 
-          <a
+          <Link
             href="/register"
-            className="px-6 py-3 bg-white/5 border border-white/10 rounded-xl"
+            className="mk-btn mk-btn--ghost"
           >
             Get API Key
-          </a>
+          </Link>
+        </div>
         </div>
       </section>
+
+      <AppFooter />
 
 
     </main>

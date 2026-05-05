@@ -1,4 +1,5 @@
 "use client";
+
 import { ReactNode } from "react";
 import { Sidebar } from "../../components/Sidebar";
 import { Topbar } from "../../components/Topbar";
@@ -10,7 +11,6 @@ export default function SectionLayout({ children }: { children: ReactNode }) {
       <div className="flex-1 min-w-0 flex flex-col min-h-screen">
         <Topbar />
         <main className="flex-1 min-w-0 overflow-x-hidden p-3 sm:p-4 md:p-6 bg-bg-dark/90">{children}</main>
-        {/* <Footer /> removed: now only rendered in root layout */}
       </div>
     </div>
   );

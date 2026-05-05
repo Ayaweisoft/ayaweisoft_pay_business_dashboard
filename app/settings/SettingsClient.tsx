@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { FormInput } from "../../components/FormInput";
-import { LucideShieldCheck, LucideKey, LucideUsers, LucideMail, LucidePhone } from "lucide-react";
+import { LucideShieldCheck, LucideKey, LucideUsers } from "lucide-react";
 
 export default function SettingsClient() {
   const [business, setBusiness] = useState({ 
@@ -13,140 +13,149 @@ export default function SettingsClient() {
   const [password, setPassword] = useState({ current: "", new: "" });
   const [twoFA, setTwoFA] = useState(true);
 
+  const teamMembers = [
+    { name: "John Doe", email: "john@posplus.com", role: "Admin", initial: "J" },
+    { name: "Jane Smith", email: "jane@posplus.com", role: "Business User", initial: "S" },
+  ] as const;
+
   return (
-    <div className="flex flex-col gap-8 p-4 md:p-8">
-      {/* Header */}
-      <div className="flex flex-col gap-1">
-        <h1 className="text-2xl font-bold text-white">Settings</h1>
-        <p className="text-white/60 text-sm">Manage business info, security, and team access.</p>
+    <div className="page-root">
+      {/* ── Header ─────────────────────────────────────────────── */}
+      <div className="page-header">
+        <div>
+          <h1 className="page-title">Settings</h1>
+          <p className="page-sub">Manage business info, security, and team access.</p>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl">
+      <div className="settings-grid">
         {/* Left Column: Business & Security */}
-        <div className="flex flex-col gap-8">
+        <div className="settings-stack">
           {/* Business Info */}
-          <section className="glass-card p-6 flex flex-col gap-6">
-            <div className="flex items-center gap-2">
-              <span className="p-2 rounded-lg bg-primary/10 text-primary">
-                <LucideKey size={20} />
-              </span>
-              <h2 className="text-lg font-bold text-white">Business Profile</h2>
+          <section className="panel settings-section">
+            <div className="section-header">
+              <span className="icon-chip icon-chip--blue"><LucideKey size={18} /></span>
+              <h2 className="section-title">Business Profile</h2>
             </div>
-            
-            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-              <FormInput 
-                label="Business Name" 
-                value={business.name} 
-                onChange={e => setBusiness(b => ({ ...b, name: e.target.value }))} 
-              />
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <FormInput 
-                  label="Email Address" 
-                  value={business.email} 
-                  onChange={e => setBusiness(b => ({ ...b, email: e.target.value }))} 
-                />
-                <FormInput 
-                  label="Phone Number" 
-                  value={business.phone} 
-                  onChange={e => setBusiness(b => ({ ...b, phone: e.target.value }))} 
+            <form className="section-body" onSubmit={e => e.preventDefault()}>
+              <div className="field">
+                <label className="label">Business Name</label>
+                <FormInput
+                  value={business.name}
+                  onChange={e => setBusiness(b => ({ ...b, name: e.target.value }))}
+                  className="input"
                 />
               </div>
-              <button className="px-6 py-2 rounded-lg bg-primary text-white font-bold hover:opacity-90 transition">
+              <div className="form-row-2">
+                <div className="field">
+                  <label className="label">Email Address</label>
+                  <FormInput
+                    value={business.email}
+                    onChange={e => setBusiness(b => ({ ...b, email: e.target.value }))}
+                    className="input"
+                  />
+                </div>
+                <div className="field">
+                  <label className="label">Phone Number</label>
+                  <FormInput
+                    value={business.phone}
+                    onChange={e => setBusiness(b => ({ ...b, phone: e.target.value }))}
+                    className="input"
+                  />
+                </div>
+              </div>
+              <button className="btn btn-primary btn-lg settings-form-cta">
                 Update Profile
               </button>
             </form>
           </section>
 
           {/* Security */}
-          <section className="glass-card p-6 flex flex-col gap-6">
-            <div className="flex items-center gap-2">
-              <span className="p-2 rounded-lg bg-success/10 text-success">
-                <LucideShieldCheck size={20} />
-              </span>
-              <h2 className="text-lg font-bold text-white">Security & Password</h2>
+          <section className="panel settings-section">
+            <div className="section-header">
+              <span className="icon-chip icon-chip--green"><LucideShieldCheck size={18} /></span>
+              <h2 className="section-title">Security &amp; Password</h2>
             </div>
-
-            <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-border">
-              <div>
-                <p className="text-sm font-bold text-white">Two-Factor Authentication</p>
-                <p className="text-xs text-white/40">Add an extra layer of security to your account.</p>
+            <div className="section-body">
+              <div className="panel settings-inline-panel">
+                <div className="panel-header">
+                  <span className="panel-title">Two-Factor Authentication</span>
+                  <button
+                    onClick={() => setTwoFA(v => !v)}
+                    className={`btn btn-sm ${twoFA ? 'btn-primary' : 'btn-subtle'}`}
+                    aria-pressed={twoFA}
+                  >
+                    {twoFA ? "Active" : "Disabled"}
+                  </button>
+                </div>
+                <div className="settings-inline-note">
+                  Add an extra layer of security to your account.
+                </div>
               </div>
-              <button 
-                onClick={() => setTwoFA(v => !v)} 
-                className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
-                  twoFA ? "bg-success text-white shadow-lg shadow-success/20" : "bg-white/10 text-white/60"
-                }`}
-              >
-                {twoFA ? "Active" : "Disabled"}
-              </button>
+
+              <form className="field settings-password-form" onSubmit={e => e.preventDefault()}>
+                <div className="field">
+                  <label className="label">Current Password</label>
+                  <FormInput
+                    type="password"
+                    value={password.current}
+                    onChange={e => setPassword(p => ({ ...p, current: e.target.value }))}
+                    placeholder="••••••••"
+                    className="input"
+                  />
+                </div>
+                <div className="field">
+                  <label className="label">New Password</label>
+                  <FormInput
+                    type="password"
+                    value={password.new}
+                    onChange={e => setPassword(p => ({ ...p, new: e.target.value }))}
+                    placeholder="Minimum 8 characters"
+                    className="input"
+                  />
+                </div>
+
+                <div className="settings-password-actions">
+                  <button className="btn btn-primary btn-lg">Save Password</button>
+                  <button className="btn btn-ghost btn-lg">Rotate API Keys</button>
+                </div>
+              </form>
             </div>
-
-            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-              <FormInput 
-                label="Current Password" 
-                type="password" 
-                placeholder="••••••••"
-              />
-              <FormInput 
-                label="New Password" 
-                type="password" 
-                placeholder="Minimum 8 characters"
-              />
-              <div className="flex gap-3">
-                <button className="px-6 py-2 rounded-lg bg-primary text-white font-bold hover:opacity-90 transition">
-                  Save Password
-                </button>
-                <button className="px-6 py-2 rounded-lg border border-border text-white/60 hover:text-white transition">
-                  Rotate API Keys
-                </button>
-              </div>
-            </form>
           </section>
         </div>
 
         {/* Right Column: Team */}
-        <div className="flex flex-col gap-8">
-          <section className="glass-card p-6 flex flex-col gap-6 h-full">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="p-2 rounded-lg bg-primary/10 text-primary">
-                  <LucideUsers size={20} />
-                </span>
-                <h2 className="text-lg font-bold text-white">Team Management</h2>
+        <div className="settings-side-col">
+          <section className="panel settings-section settings-section--fill">
+            <div className="section-header section-header--between">
+              <div className="section-header-group">
+                <span className="icon-chip icon-chip--teal"><LucideUsers size={18} /></span>
+                <h2 className="section-title">Team Management</h2>
               </div>
-              <button className="text-xs font-bold text-primary hover:underline">
-                + Invite Member
-              </button>
+              <button className="btn btn-primary btn-sm">+ Invite Member</button>
             </div>
-
-            <div className="flex flex-col gap-3">
-              {[
-                { name: "John Doe", email: "john@posplus.com", role: "Admin", initial: "J" },
-                { name: "Jane Smith", email: "jane@posplus.com", role: "Business User", initial: "S" }
-              ].map((member, i) => (
-                <div key={i} className="flex items-center justify-between p-4 rounded-xl bg-white/[0.02] border border-border hover:bg-white/5 transition">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">
+            <div className="section-body settings-members">
+              {teamMembers.map((member) => (
+                <div key={member.email} className="panel settings-member-row">
+                  <div className="settings-member-main">
+                    <span className="avatar avatar--md settings-member-avatar">
                       {member.initial}
-                    </div>
+                    </span>
                     <div>
-                      <p className="text-sm font-bold text-white">{member.name}</p>
-                      <p className="text-xs text-white/40">{member.email}</p>
+                      <p className="settings-member-name">{member.name}</p>
+                      <p className="settings-member-email">{member.email}</p>
                     </div>
                   </div>
-                  <span className={`text-[10px] uppercase tracking-widest px-2 py-1 rounded font-bold ${
-                    member.role === 'Admin' ? 'bg-primary/10 text-primary' : 'bg-white/10 text-white/60'
-                  }`}>
+                  <span className={`badge settings-member-role ${member.role === 'Admin' ? 'badge--info' : 'badge--neutral'}`}>
                     {member.role}
                   </span>
                 </div>
               ))}
             </div>
-            
-            <div className="mt-auto p-4 rounded-xl bg-primary/5 border border-primary/20">
-              <p className="text-xs text-white/60 leading-relaxed">
-                <span className="font-bold text-primary">Pro Tip:</span> Administrators have full access to API keys and payout processing. Use "Business User" for staff handling records only.
-              </p>
+            <div className="settings-tip-panel">
+              <div className="settings-tip-copy">
+                <span className="settings-tip-label">Pro Tip:</span> Administrators have full access to API keys and payout processing. Use "Business User" for staff handling records only.
+              </div>
             </div>
           </section>
         </div>

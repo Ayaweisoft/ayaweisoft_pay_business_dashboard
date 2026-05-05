@@ -1,32 +1,99 @@
-import { LucideBell, LucideUser, LucideSettings, LucideSearch } from "lucide-react";
-import Image from "next/image";
+"use client";
 
-export function Topbar() {
+import { LucideBell, LucideSettings, LucideSearch, LucideChevronDown } from "lucide-react";
+import Link from "next/link";
+
+interface TopbarProps {
+  userName?: string;
+  userInitials?: string;
+  notifCount?: number;
+}
+
+export function Topbar({ userName = "John Doe", userInitials = "JD", notifCount = 3 }: TopbarProps) {
   return (
-    <header className="flex items-center justify-between px-4 md:px-6 py-4 bg-bg-dark/80 backdrop-blur-lg shadow-glass z-20">
-      <div className="flex items-center gap-3 min-w-30">
-        {/* <Image src="/asp_logo.png" alt="Ayaweisoft Pay Logo" width={32} height={32} className="rounded-lg bg-white/10" /> */}
-        {/* <span className="text-primary font-bold text-lg tracking-tight hidden sm:inline">Ayaweisoft Pay</span> */}
+    <header className="app-topbar">
+
+      {/* Search */}
+      <div className="search-wrap app-topbar__search">
+        <span className="search-icon">
+          <LucideSearch size={14} strokeWidth={2} />
+        </span>
+        <input
+          className="search-input"
+          placeholder="Search transactions, wallets…"
+        />
       </div>
-      <div className="flex items-center gap-2 w-1/2 max-w-lg flex-1">
-        <div className="relative w-full">
-          <input
-            type="text"
-            placeholder="Search Transactions..."
-            className="w-full bg-bg-card/80 border border-border rounded-lg px-4 py-2 pl-10 text-sm text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-primary transition"
-          />
-          <LucideSearch className="absolute left-3 top-2.5 text-white/50" size={18} />
-        </div>
-      </div>
-      <div className="flex items-center gap-4">
-        <button className="relative p-2 rounded-full hover:bg-bg-card transition">
-          <LucideBell className="text-white" size={20} />
-        </button>
-        <button className="p-2 rounded-full hover:bg-bg-card transition">
-          <LucideUser className="text-white" size={20} />
-        </button>
-        <button className="p-2 rounded-full hover:bg-bg-card transition">
-          <LucideSettings className="text-white" size={20} />
+
+      {/* Right actions */}
+      <div className="app-topbar__actions">
+
+        {/* Notifications */}
+        <Link
+          href="/notifications"
+          style={{
+            position: "relative",
+            width: 34, height: 34,
+            borderRadius: "var(--radius-md)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            background: "none",
+            border: "1px solid transparent",
+            color: "var(--foreground-muted)",
+            cursor: "pointer",
+            transition: "all 150ms ease",
+          }}
+          className="app-topbar__icon-btn"
+          aria-label="Notifications"
+        >
+          <LucideBell size={16} strokeWidth={2} />
+          {notifCount > 0 && (
+            <span style={{
+              position: "absolute", top: 4, right: 4,
+              width: 8, height: 8, borderRadius: "50%",
+              background: "var(--primary)",
+              border: "1.5px solid var(--surface-container-low)",
+            }} />
+          )}
+        </Link>
+
+        {/* Settings */}
+        <Link
+          href="/settings"
+          style={{
+            width: 34, height: 34,
+            borderRadius: "var(--radius-md)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            background: "none", border: "1px solid transparent",
+            color: "var(--foreground-muted)", cursor: "pointer",
+            transition: "all 150ms ease",
+          }}
+          className="app-topbar__icon-btn"
+          aria-label="Settings"
+        >
+          <LucideSettings size={16} strokeWidth={2} />
+        </Link>
+
+        {/* Divider */}
+        <div style={{ width: 1, height: 22, background: "var(--border-subtle)", margin: "0 4px" }} />
+
+        {/* User chip */}
+        <button
+          style={{
+            display: "flex", alignItems: "center", gap: 8,
+            padding: "5px 10px 5px 5px",
+            borderRadius: "var(--radius-lg)",
+            background: "var(--surface-container)",
+            border: "1px solid var(--border-subtle)",
+            cursor: "pointer",
+            transition: "all 150ms ease",
+          }}
+          onMouseOver={e => (e.currentTarget.style.borderColor = "var(--border-mid)")}
+          onMouseOut={e  => (e.currentTarget.style.borderColor = "var(--border-subtle)")}
+        >
+          <span className="avatar avatar--sm">{userInitials}</span>
+          <span className="app-topbar__user-name" style={{ fontSize: "0.78rem", fontWeight: 600, color: "var(--foreground)" }}>
+            {userName.split(" ")[0]}
+          </span>
+          <LucideChevronDown size={12} color="var(--foreground-muted)" />
         </button>
       </div>
     </header>
