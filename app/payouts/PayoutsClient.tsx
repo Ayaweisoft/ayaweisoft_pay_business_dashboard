@@ -22,9 +22,9 @@ export default function PayoutsClient() {
   const [showSingleModal, setShowSingleModal] = useState(false);
 
   return (
-    <div className="flex flex-col gap-8 p-4 md:p-8">
+    <div className="flex flex-col gap-6 p-2 sm:p-4 md:p-8">
       {/* Header and Actions */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 sm:gap-4">
         <div>
           <h1 className="text-2xl font-bold text-white mb-1">Payouts</h1>
           <p className="text-white/60 text-sm">Send single or bulk payouts to any bank account.</p>
@@ -46,7 +46,7 @@ export default function PayoutsClient() {
       </div>
 
       {/* Upload Summary Card */}
-      <div className="glass-card p-6 flex flex-col gap-4 border border-white/5">
+      <div className="glass-card p-4 sm:p-6 flex flex-col gap-4 border border-white/5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <LucideFileText className="text-primary" size={20} />
@@ -57,7 +57,7 @@ export default function PayoutsClient() {
           </button>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-2">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 py-2">
           <div className="bg-white/5 p-3 rounded-lg border border-border">
             <p className="text-white/40 text-xs uppercase tracking-wider mb-1">Total Amount</p>
             <p className="text-lg font-bold text-success">₦1,200,000</p>
@@ -79,30 +79,30 @@ export default function PayoutsClient() {
 
       {/* Payout History Table */}
       <div className="glass-card overflow-hidden">
-        <div className="p-6 border-b border-border">
+        <div className="p-4 sm:p-6 border-b border-border">
           <h2 className="text-lg font-bold text-white">Payout History</h2>
         </div>
         <div className="overflow-x-auto">
-          <table className="w-full text-sm text-left">
+          <table className="min-w-130 w-full text-sm text-left">
             <thead className="bg-white/5 text-white/40 uppercase text-[10px] tracking-widest">
               <tr>
-                <th className="px-6 py-4 font-semibold">Recipient</th>
-                <th className="px-6 py-4 font-semibold">Bank</th>
-                <th className="px-6 py-4 font-semibold">Amount</th>
-                <th className="px-6 py-4 font-semibold">Status</th>
-                <th className="px-6 py-4 font-semibold text-right">Reference</th>
+                <th className="px-3 py-2 sm:px-6 sm:py-4 font-semibold">Recipient</th>
+                <th className="px-3 py-2 sm:px-6 sm:py-4 font-semibold">Bank</th>
+                <th className="px-3 py-2 sm:px-6 sm:py-4 font-semibold">Amount</th>
+                <th className="px-3 py-2 sm:px-6 sm:py-4 font-semibold">Status</th>
+                <th className="px-3 py-2 sm:px-6 sm:py-4 font-semibold text-right">Reference</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
               {PAYOUT_HISTORY.map((row, idx) => (
                 <tr key={idx} className="hover:bg-white/2 transition-colors">
-                  <td className="px-6 py-4 text-white font-medium">{row.name}</td>
-                  <td className="px-6 py-4 text-white/60">{row.bank}</td>
-                  <td className="px-6 py-4 text-white font-mono">₦{row.amount.toLocaleString()}</td>
-                  <td className="px-6 py-4">
+                  <td className="px-3 py-2 sm:px-6 sm:py-4 text-white font-medium">{row.name}</td>
+                  <td className="px-3 py-2 sm:px-6 sm:py-4 text-white/60">{row.bank}</td>
+                  <td className="px-3 py-2 sm:px-6 sm:py-4 text-white font-mono">₦{row.amount.toLocaleString()}</td>
+                  <td className="px-3 py-2 sm:px-6 sm:py-4">
                     <StatusBadge status={row.status as any} />
                   </td>
-                  <td className="px-6 py-4 text-right text-white/40 font-mono">{row.ref}</td>
+                  <td className="px-3 py-2 sm:px-6 sm:py-4 text-right text-white/40 font-mono">{row.ref}</td>
                 </tr>
               ))}
             </tbody>

@@ -53,9 +53,9 @@ export default function VirtualAccountsClient() {
   };
 
   return (
-    <div className="flex flex-col gap-8 p-4 md:p-8">
+    <div className="flex flex-col gap-6 p-2 sm:p-4 md:p-8">
       {/* Header and Actions */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4">
         <div>
           <h1 className="text-2xl font-bold text-white">Virtual Accounts</h1>
           <p className="text-white/60 text-sm">Issue and manage unique collection accounts for your customers.</p>
@@ -69,7 +69,7 @@ export default function VirtualAccountsClient() {
       </div>
 
       {/* VA Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
         {VIRTUAL_ACCOUNTS.map((va) => (
           <div key={va.id} className="glass-card p-6 flex flex-col gap-4 border border-border group hover:border-primary/30 transition-all">
             <div className="flex items-center justify-between">
@@ -125,30 +125,30 @@ export default function VirtualAccountsClient() {
 
       {/* VA Transactions Table */}
       <div className="glass-card flex flex-col overflow-hidden border border-border">
-        <div className="p-6 border-b border-border bg-white/2">
+        <div className="p-4 sm:p-6 border-b border-border bg-white/2">
           <h2 className="text-lg font-bold text-white">Recent VA Activity</h2>
         </div>
         <div className="overflow-x-auto">
-          <table className="w-full text-sm text-left">
+          <table className="min-w-130 w-full text-sm text-left">
             <thead className="bg-white/5 text-white/40 uppercase text-[10px] tracking-widest font-bold">
               <tr>
-                <th className="px-6 py-4">Date</th>
-                <th className="px-6 py-4">Type</th>
-                <th className="px-6 py-4">Reference</th>
-                <th className="px-6 py-4">Status</th>
-                <th className="px-6 py-4 text-right">Amount</th>
+                <th className="px-3 py-2 sm:px-6 sm:py-4">Date</th>
+                <th className="px-3 py-2 sm:px-6 sm:py-4">Type</th>
+                <th className="px-3 py-2 sm:px-6 sm:py-4">Reference</th>
+                <th className="px-3 py-2 sm:px-6 sm:py-4">Status</th>
+                <th className="px-3 py-2 sm:px-6 sm:py-4 text-right">Amount</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
               {VA_TRANSACTIONS.map((tx, idx) => (
                 <tr key={idx} className="hover:bg-white/2 transition-colors">
-                  <td className="px-6 py-4 text-white/60">
+                  <td className="px-3 py-2 sm:px-6 sm:py-4 text-white/60">
                     {new Date(tx.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
                   </td>
-                  <td className="px-6 py-4 font-medium text-white/90">{tx.type}</td>
-                  <td className="px-6 py-4 font-mono text-xs text-white/50">{tx.ref}</td>
-                  <td className="px-6 py-4"><StatusBadge status={tx.status as any} /></td>
-                  <td className={`px-6 py-4 text-right font-bold ${tx.type === 'Credit' ? 'text-success' : 'text-white'}`}>
+                  <td className="px-3 py-2 sm:px-6 sm:py-4 font-medium text-white/90">{tx.type}</td>
+                  <td className="px-3 py-2 sm:px-6 sm:py-4 font-mono text-xs text-white/50">{tx.ref}</td>
+                  <td className="px-3 py-2 sm:px-6 sm:py-4"><StatusBadge status={tx.status as any} /></td>
+                  <td className={`px-3 py-2 sm:px-6 sm:py-4 text-right font-bold ${tx.type === 'Credit' ? 'text-success' : 'text-white'}`}> 
                     {tx.type === 'Credit' ? '+' : '-'} ₦{tx.amount.toLocaleString()}
                   </td>
                 </tr>

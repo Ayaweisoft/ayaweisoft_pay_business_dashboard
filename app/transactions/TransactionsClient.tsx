@@ -53,9 +53,9 @@ export default function TransactionsClient() {
   }, [searchTerm, statusFilter]);
 
   return (
-    <div className="flex flex-col gap-6 p-4 md:p-8">
+    <div className="flex flex-col gap-5 p-2 sm:p-4 md:p-8">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4">
         <div>
           <h1 className="text-2xl font-bold text-white">Transactions</h1>
           <p className="text-white/60 text-sm">Audit and track every movement in your business wallet.</p>
@@ -66,7 +66,7 @@ export default function TransactionsClient() {
       </div>
 
       {/* Filters Bar */}
-      <div className="flex flex-col md:flex-row gap-4 items-center bg-bg-card p-4 rounded-xl border border-border">
+      <div className="flex flex-col md:flex-row gap-3 sm:gap-4 items-center bg-bg-card p-3 sm:p-4 rounded-xl border border-border">
         <div className="relative flex-1 w-full">
           <LucideSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40" size={18} />
           <input 
@@ -95,31 +95,31 @@ export default function TransactionsClient() {
       {/* Transactions Table */}
       <div className="glass-card overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm">
+          <table className="min-w-130 w-full text-left text-sm">
             <thead className="bg-white/5 text-white/40 uppercase text-[10px] tracking-widest font-bold">
               <tr>
-                <th className="px-6 py-4">Date & Time</th>
-                <th className="px-6 py-4">Reference</th>
-                <th className="px-6 py-4">Amount</th>
-                <th className="px-6 py-4">Status</th>
-                <th className="px-6 py-4 text-right">Action</th>
+                <th className="px-3 py-2 sm:px-6 sm:py-4">Date & Time</th>
+                <th className="px-3 py-2 sm:px-6 sm:py-4">Reference</th>
+                <th className="px-3 py-2 sm:px-6 sm:py-4">Amount</th>
+                <th className="px-3 py-2 sm:px-6 sm:py-4">Status</th>
+                <th className="px-3 py-2 sm:px-6 sm:py-4 text-right">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
               {filteredTransactions.map((txn, idx) => (
-                <tr key={idx} className="hover:bg-white/[0.02] transition-colors group">
-                  <td className="px-6 py-4 text-white/60">{txn.date}</td>
-                  <td className="px-6 py-4">
+                <tr key={idx} className="hover:bg-white/2 transition-colors group">
+                  <td className="px-3 py-2 sm:px-6 sm:py-4 text-white/60">{txn.date}</td>
+                  <td className="px-3 py-2 sm:px-6 sm:py-4">
                     <span className="font-mono text-white/90">{txn.ref}</span>
                     <p className="text-[10px] text-white/40">{txn.description}</p>
                   </td>
-                  <td className={`px-6 py-4 font-bold ${txn.type === 'Credit' ? 'text-success' : 'text-white'}`}>
+                  <td className={`px-3 py-2 sm:px-6 sm:py-4 font-bold ${txn.type === 'Credit' ? 'text-success' : 'text-white'}`}> 
                     {txn.type === 'Credit' ? '+' : '-'} ₦{txn.amount.toLocaleString()}
                   </td>
-                  <td className="px-6 py-4">
+                  <td className="px-3 py-2 sm:px-6 sm:py-4">
                     <StatusBadge status={txn.status as any} />
                   </td>
-                  <td className="px-6 py-4 text-right">
+                  <td className="px-3 py-2 sm:px-6 sm:py-4 text-right">
                     <button 
                       onClick={() => setSelectedTxn(txn)}
                       className="p-2 rounded-lg bg-white/5 text-white/40 hover:text-white hover:bg-primary/20 transition"
