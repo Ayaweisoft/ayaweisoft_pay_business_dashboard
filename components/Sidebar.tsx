@@ -4,7 +4,7 @@ import {
   LucideHome, LucideCreditCard, LucideBanknote, LucideSend,
   LucideList, LucideBarChart, LucidePlug, LucideSettings,
   LucideMenu, LucideX, LucideChevronRight, LucideBell, LucideActivity,
-  LucideLogOut, LucideZap,
+  LucideLogOut,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -72,7 +72,14 @@ export function Sidebar() {
           <div className="sidebar-header">
             <Link href="/dashboard" className="sidebar-logo" onClick={() => setIsOpen(false)}>
               <div className="sidebar-logo-icon">
-                <LucideZap size={16} strokeWidth={2.5} color="#fff" />
+                <Image
+                  src="/asp_logo.png"
+                  alt="Ayaweisoft Pay Logo"
+                  width={22}
+                  height={22}
+                  className="object-contain"
+                  priority
+                />
               </div>
               <div className="sidebar-logo-text">
                 <span className="sidebar-logo-name">Ayaweisoft</span>

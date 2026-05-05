@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const LINKS = {
   Product: [
@@ -29,7 +30,15 @@ export default function AppFooter() {
           {/* Brand */}
           <div className="mk-footer__brand">
             <div className="mk-footer__brand-head">
-              <span className="mk-footer__brand-icon">A</span>
+              <span className="mk-footer__brand-icon" aria-hidden="true">
+                <Image
+                  src="/asp_logo.png"
+                  alt=""
+                  width={20}
+                  height={20}
+                  className="object-contain"
+                />
+              </span>
               <span className="mk-footer__brand-name">
                 Ayaweisoft <span className="mk-footer__brand-pay">Pay</span>
               </span>

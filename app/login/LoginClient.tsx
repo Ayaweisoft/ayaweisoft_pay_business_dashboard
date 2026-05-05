@@ -3,20 +3,38 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { LucideLock, LucideLoader2, LucideAlertCircle } from "lucide-react";
+import {
+  LucideLock,
+  LucideLoader2,
+  LucideAlertCircle,
+  LucideEye,
+  LucideEyeOff,
+  LucideCheckCircle2,
+} from "lucide-react";
 
 export default function LoginClient() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
   // Demo credentials
   const DEMO_EMAIL = "demo@ayaweisoft.com";
   const DEMO_PASSWORD = "demopass";
 
+  const applyDemo = () => {
+    setForm({ email: DEMO_EMAIL, password: DEMO_PASSWORD });
+    setError("");
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!form.email.trim() || !form.password.trim()) {
+      setError("Please enter your email and password.");
+      return;
+    }
+
     setLoading(true);
     setError("");
 
@@ -31,74 +49,92 @@ export default function LoginClient() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-bg p-4">
-      <div className="glass-card p-8 w-full max-w-md flex flex-col gap-8 border border-border">
+    <div className="auth-root">
+      <div className="auth-card">
         {/* Header */}
-        <div className="flex flex-col items-center gap-3">
-          <div className="p-3 rounded-xl bg-primary/10 text-primary">
+        <div className="auth-head">
+          <div className="auth-logo-ring">
             <LucideLock size={32} />
           </div>
-          <div className="text-center">
-            <h1 className="text-2xl font-bold text-white tracking-tight">Sign in to Ayaweisoft Pay</h1>
-            <p className="text-white/60 text-sm mt-1">Access your business dashboard</p>
-          </div>
+          <h1 className="auth-title">Sign in to Ayaweisoft Pay</h1>
+          <p className="auth-sub">Access your business dashboard</p>
         </div>
 
         {/* Demo Alert */}
-        <div className="p-4 rounded-xl bg-primary/5 border border-primary/20 text-center">
-          <p className="text-xs text-white/40 mb-1 font-medium uppercase tracking-widest">Demo Credentials</p>
-          <code className="text-primary font-bold text-sm">demo@ayaweisoft.com / demopass</code>
+        <div className="auth-demo">
+          <p className="auth-demo-kicker">Demo Credentials</p>
+          <code className="auth-demo-code">demo@ayaweisoft.com / demopass</code>
+          <button type="button" className="auth-help-link mt-2" onClick={applyDemo}>
+            Use demo login
+          </button>
         </div>
 
         {/* Form */}
-        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+        <form className="auth-form" onSubmit={handleSubmit}>
           {error && (
-            <div className="p-3 rounded-lg bg-error/10 border border-error/20 flex items-center gap-2 text-error text-xs font-bold animate-shake">
+            <div className="auth-alert">
               <LucideAlertCircle size={14} />
               {error}
             </div>
           )}
 
-          <div className="space-y-1">
-            <label className="text-[10px] font-bold text-white/30 uppercase tracking-widest ml-1">Email Address</label>
+          <div className="auth-field">
+            <label className="auth-label">Email Address</label>
             <input
               type="email"
               placeholder="name@company.com"
-              className="w-full bg-bg-card border border-border rounded-lg px-4 py-3 text-sm text-white placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-primary/50 transition"
+              className="auth-input"
               value={form.email}
               onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
               required
             />
           </div>
 
-          <div className="space-y-1">
-            <div className="flex justify-between items-center px-1">
-              <label className="text-[10px] font-bold text-white/30 uppercase tracking-widest">Password</label>
-              <Link href="#" className="text-[10px] font-bold text-primary hover:underline uppercase tracking-widest">Forgot?</Link>
+          <div className="auth-field">
+            <div className="auth-field-row">
+              <label className="auth-label">Password</label>
+              <Link href="/forgot-password" className="auth-help-link">Forgot?</Link>
             </div>
-            <input
-              type="password"
-              placeholder="••••••••"
-              className="w-full bg-bg-card border border-border rounded-lg px-4 py-3 text-sm text-white placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-primary/50 transition"
-              value={form.password}
-              onChange={e => setForm(f => ({ ...f, password: e.target.value }))}
-              required
-            />
+            <div className="auth-password-wrap">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="••••••••"
+                className="auth-input"
+                value={form.password}
+                onChange={e => setForm(f => ({ ...f, password: e.target.value }))}
+                required
+              />
+              <button
+                type="button"
+                className="auth-eye-btn"
+                aria-label={showPassword ? "Hide password" : "Show password"}
+                onClick={() => setShowPassword((v) => !v)}
+              >
+                {showPassword ? <LucideEyeOff size={15} /> : <LucideEye size={15} />}
+              </button>
+            </div>
           </div>
 
           <button 
             type="submit" 
             disabled={loading}
-            className="mt-2 flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-primary text-white font-bold hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition shadow-lg shadow-primary/20 active:scale-[0.98]"
+            className="auth-submit flex items-center justify-center gap-2"
           >
             {loading ? <LucideLoader2 size={18} className="animate-spin" /> : "Secure Login"}
           </button>
+
+          {!loading && !error && form.email === DEMO_EMAIL && form.password === DEMO_PASSWORD && (
+            <div className="auth-success">
+              <LucideCheckCircle2 size={14} />
+              Demo credentials loaded. Press Secure Login to continue.
+            </div>
+          )}
         </form>
 
-        <div className="text-center pt-2">
-          <p className="text-sm text-white/40">
+        <div className="auth-foot">
+          <p>
             Don't have a business account?{" "}
-            <Link href="/register" className="text-primary font-bold hover:underline">
+            <Link href="/register">
               Register
             </Link>
           </p>

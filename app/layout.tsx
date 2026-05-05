@@ -32,6 +32,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
   icons: {
     icon: "/asp_logo.png",
+    shortcut: "/asp_logo.png",
     apple: "/asp_logo.png",
   },
   openGraph: {
@@ -55,9 +56,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${dmSans.variable} ${dmSerif.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-bg text-white selection:bg-primary/30 selection:text-white">
+      <body suppressHydrationWarning className="min-h-full flex flex-col bg-bg text-white selection:bg-primary/30 selection:text-white">
         <div className="flex flex-col min-h-screen">
           {children}
         </div>
